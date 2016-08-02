@@ -65,14 +65,14 @@ parseOptions = (args=[]) ->
   options = yargs(args).wrap(100)
   options.usage """
 
-    apm - Atom Package Manager powered by https://atom.io
+    ipm - Inkdrop Package Manager powered by https://www.inkdrop.info
 
-    Usage: apm <command>
+    Usage: ipm <command>
 
     where <command> is one of:
     #{wordwrap(4, 80)(Object.keys(commands).sort().join(', '))}.
 
-    Run `apm help <command>` to see the more details about a specific command.
+    Run `ipm help <command>` to see the more details about a specific command.
   """
   options.alias('v', 'version').describe('version', 'Print the apm version')
   options.alias('h', 'help').describe('help', 'Print this usage message')

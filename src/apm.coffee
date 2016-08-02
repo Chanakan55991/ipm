@@ -9,10 +9,19 @@ module.exports =
     if process.platform is 'win32' then process.env.USERPROFILE else process.env.HOME
 
   getAtomDirectory: ->
-    process.env.ATOM_HOME ? path.join(@getHomeDirectory(), '.atom')
+    process.env.ATOM_HOME ? path.join(@getAppDataPath(), 'inkdrop')
 
   getCacheDirectory: ->
     path.join(@getAtomDirectory(), '.apm')
+
+  getAppDataPath: ->
+    switch process.platform
+      when 'darwin'
+        path.join process.env.HOME, 'Library', 'Application Support'
+      when 'linux'
+        path.join process.env.HOME, '.config'
+      when 'win32'
+        process.env.APPDATA
 
   getResourcePath: (callback) ->
     if process.env.ATOM_RESOURCE_PATH
@@ -34,18 +43,18 @@ module.exports =
 
     switch process.platform
       when 'darwin'
-        child_process.exec 'mdfind "kMDItemCFBundleIdentifier == \'com.github.atom\'"', (error, stdout='', stderr) ->
+        child_process.exec 'mdfind "kMDItemCFBundleIdentifier == \'info.pkpk.inkdrop\'"', (error, stdout='', stderr) ->
           [appLocation] = stdout.split('\n') unless error
-          appLocation = '/Applications/Atom.app' unless appLocation
+          appLocation = '/Applications/Inkdrop.app' unless appLocation
           callback("#{appLocation}/Contents/Resources/app.asar")
       when 'linux'
-        appLocation = '/usr/local/share/atom/resources/app.asar'
+        appLocation = '/usr/local/share/inkdrop/resources/app.asar'
         unless fs.existsSync(appLocation)
-          appLocation = '/usr/share/atom/resources/app.asar'
+          appLocation = '/usr/share/inkdrop/resources/app.asar'
         process.nextTick -> callback(appLocation)
       when 'win32'
         process.nextTick ->
-          programFilesPath = path.join(process.env.ProgramFiles, 'Atom', 'resources', 'app.asar')
+          programFilesPath = path.join(process.env.ProgramFiles, 'Inkdrop', 'resources', 'app.asar')
           callback(programFilesPath)
 
   getReposDirectory: ->
@@ -58,7 +67,7 @@ module.exports =
     process.env.ATOM_PACKAGES_URL ? "#{@getAtomApiUrl()}/packages"
 
   getAtomApiUrl: ->
-    process.env.ATOM_API_URL ? 'https://atom.io/api'
+    process.env.ATOM_API_URL ? 'https://www.inkdrop.info/api/v1'
 
   getElectronArch: ->
     switch process.platform

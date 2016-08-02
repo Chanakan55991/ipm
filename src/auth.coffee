@@ -9,7 +9,7 @@ catch error
   else
     throw error
 
-tokenName = 'Atom.io API Token'
+tokenName = 'Inkdrop API Token'
 
 module.exports =
   # Get the Atom.io API token from the keychain.
@@ -26,7 +26,7 @@ module.exports =
       return
 
     callback """
-      No Atom.io API token in keychain
+      No Inkdrop API token in keychain
       Run `apm login` or set the `ATOM_ACCESS_TOKEN` environment variable.
     """
 
@@ -34,4 +34,4 @@ module.exports =
   #
   # token - A string token to save.
   saveToken: (token) ->
-    keytar.replacePassword(tokenName, 'atom.io', token)
+    keytar.replacePassword(tokenName, 'inkdrop', token)

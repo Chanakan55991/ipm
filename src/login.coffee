@@ -22,13 +22,13 @@ class Login extends Command
     options = yargs(argv).wrap(100)
 
     options.usage """
-      Usage: apm login
+      Usage: ipm login
 
-      Enter your Atom.io API token and save it to the keychain. This token will
-      be used to identify you when publishing packages to atom.io.
+      Enter your Inkdrop API token and save it to the keychain. This token will
+      be used to identify you when publishing packages to Inkdrop.
     """
     options.alias('h', 'help').describe('help', 'Print this usage message')
-    options.string('token').describe('token', 'atom.io API token')
+    options.string('token').describe('token', 'Inkdrop API token')
 
   run: (options) ->
     {callback} = options
@@ -53,25 +53,29 @@ class Login extends Command
 
       Before you can publish packages, you'll need an API token.
 
-      Visit your account page on Atom.io #{'https://atom.io/account'.underline},
+      Visit your account page on Atom.io #{'https://www.inkdrop.info/account'.underline},
       copy the token and paste it below when prompted.
 
     """
     console.log welcome
 
-    @prompt({prompt: "Press [Enter] to open your account page on Atom.io."})
+    @prompt({prompt: "Press [Enter] to open your account page on Inkdrop."})
 
   openURL: (state) ->
     return Q(state) if state.token
 
-    open('https://atom.io/account')
+    open('https://www.inkdrop.info/account/api-keys')
 
   getToken: (state) =>
     return Q(state) if state.token
 
-    @prompt({prompt: 'Token>', edit: true})
-      .spread (token) ->
-        state.token = token
+    @prompt({prompt: 'Access Key ID>', edit: true})
+      .spread (keyId) =>
+        state.keyId = keyId
+        @prompt({prompt: 'Secret Access Key>', edit: true})
+      .spread (secret) ->
+        state.secret = secret
+        state.token = 'Basic ' + new Buffer("#{state.keyId}:#{state.secret}").toString('base64')
         Q(state)
 
   saveToken: ({token}) =>
