@@ -1,18 +1,18 @@
 {
-  "name": "atom-package-manager",
-  "description": "Atom package manager",
+  "name": "inkdrop-package-manager",
+  "description": "Inkdrop package manager",
   "version": "1.12.5",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/atom/apm.git"
+    "url": "https://github.com/inkdropapp/ipm.git"
   },
   "bugs": {
-    "url": "https://github.com/atom/apm/issues"
+    "url": "https://github.com/inkdropapp/ipm/issues"
   },
-  "main": "./lib/apm.js",
+  "main": "./lib/ipm.js",
   "bin": {
-    "apm": "./bin/apm"
+    "ipm": "./bin/ipm"
   },
   "scripts": {
     "build": "node script/check-version.js && grunt",
