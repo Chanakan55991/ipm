@@ -16,10 +16,10 @@ class Stars extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm stars
-             apm stars --install
-             apm stars --user thedaniel
-             apm stars --themes
+      Usage: ipm stars
+             ipm stars --install
+             ipm stars --user thedaniel
+             ipm stars --themes
 
       List or install starred Atom packages and themes.
     """
@@ -83,7 +83,7 @@ class Stars extends Command
       label
 
     console.log()
-    console.log "Use `apm stars --install` to install them all or visit #{'http://atom.io/packages'.underline} to read more about them."
+    console.log "Use `ipm stars --install` to install them all or visit #{'https://www.inkdrop.info/packages'.underline} to read more about them."
     console.log()
     callback()
 

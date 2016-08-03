@@ -16,7 +16,7 @@ class RebuildModuleCache extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm rebuild-module-cache
+      Usage: ipm rebuild-module-cache
 
       Rebuild the module cache for all the packages installed to
       ~/.atom/packages

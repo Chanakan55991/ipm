@@ -24,22 +24,22 @@ class Publish extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm publish [<newversion> | major | minor | patch | build]
-             apm publish --tag <tagname>
-             apm publish --rename <new-name>
+      Usage: ipm publish [<newversion> | major | minor | patch | build]
+             ipm publish --tag <tagname>
+             ipm publish --rename <new-name>
 
       Publish a new version of the package in the current working directory.
 
       If a new version or version increment is specified, then a new Git tag is
       created and the package.json file is updated with that new version before
-      it is published to the apm registry. The HEAD branch and the new tag are
+      it is published to the ipm registry. The HEAD branch and the new tag are
       pushed up to the remote repository automatically using this option.
 
       If a new name is provided via the --rename flag, the package.json file is
-      updated with the new name and the package's name is updated on Atom.io.
+      updated with the new name and the package's name is updated on Inkdrop.
 
-      Run `apm featured` to see all the featured packages or
-      `apm view <packagename>` to see information about your package after you
+      Run `ipm featured` to see all the featured packages or
+      `ipm view <packagename>` to see information about your package after you
       have published it.
     """
     options.alias('h', 'help').describe('help', 'Print this usage message')
@@ -219,7 +219,7 @@ class Publish extends Command
     if process.platform is 'darwin'
       process.stdout.write ' \uD83D\uDC4D  \uD83D\uDCE6  \uD83C\uDF89'
 
-    process.stdout.write "\nCheck it out at https://atom.io/packages/#{pack.name}\n"
+    process.stdout.write "\nCheck it out at https://www.inkdrop.info/packages/#{pack.name}\n"
 
   loadMetadata: ->
     metadataPath = path.resolve('package.json')

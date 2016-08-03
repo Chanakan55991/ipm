@@ -27,7 +27,7 @@ module.exports =
 
     callback """
       No Inkdrop API token in keychain
-      Run `apm login` or set the `ATOM_ACCESS_TOKEN` environment variable.
+      Run `ipm login` or set the `ATOM_ACCESS_TOKEN` environment variable.
     """
 
   # Save the given token to the keychain.

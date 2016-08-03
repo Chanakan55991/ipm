@@ -14,7 +14,7 @@ class Enable extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm enable [<package_name>]...
+      Usage: ipm enable [<package_name>]...
 
       Enables the named package(s).
     """

@@ -23,7 +23,7 @@ class Dedupe extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm dedupe [<package_name>...]
+      Usage: ipm dedupe [<package_name>...]
 
       Reduce duplication in the node_modules folder in the current directory.
 

@@ -19,7 +19,7 @@ class Links extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm links
+      Usage: ipm links
 
       List all of the symlinked atom packages in ~/.atom/packages and
       ~/.atom/dev/packages.

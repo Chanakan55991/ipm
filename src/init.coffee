@@ -16,18 +16,18 @@ class Init extends Command
 
     options.usage """
       Usage:
-        apm init -p <package-name>
-        apm init -p <package-name> --syntax <javascript-or-coffeescript>
-        apm init -p <package-name> -c ~/Downloads/r.tmbundle
-        apm init -p <package-name> -c https://github.com/textmate/r.tmbundle
-        apm init -p <package-name> --template /path/to/your/package/template
+        ipm init -p <package-name>
+        ipm init -p <package-name> --syntax <javascript-or-coffeescript>
+        ipm init -p <package-name> -c ~/Downloads/r.tmbundle
+        ipm init -p <package-name> -c https://github.com/textmate/r.tmbundle
+        ipm init -p <package-name> --template /path/to/your/package/template
 
-        apm init -t <theme-name>
-        apm init -t <theme-name> -c ~/Downloads/Dawn.tmTheme
-        apm init -t <theme-name> -c https://raw.github.com/chriskempson/tomorrow-theme/master/textmate/Tomorrow-Night-Eighties.tmTheme
-        apm init -t <theme-name> --template /path/to/your/theme/template
+        ipm init -t <theme-name>
+        ipm init -t <theme-name> -c ~/Downloads/Dawn.tmTheme
+        ipm init -t <theme-name> -c https://raw.github.com/chriskempson/tomorrow-theme/master/textmate/Tomorrow-Night-Eighties.tmTheme
+        ipm init -t <theme-name> --template /path/to/your/theme/template
 
-        apm init -l <language-name>
+        ipm init -l <language-name>
 
       Generates code scaffolding for either a theme or package depending
       on the option selected.
@@ -74,7 +74,7 @@ class Init extends Command
     else if options.argv.theme?
       callback('You must specify a path after the --theme argument')
     else
-      callback('You must specify either --package, --theme or --language to `apm init`')
+      callback('You must specify either --package, --theme or --language to `ipm init`')
 
   convertPackage: (sourcePath, destinationPath, callback) ->
     unless destinationPath

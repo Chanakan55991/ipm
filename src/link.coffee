@@ -15,12 +15,12 @@ class Link extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm link [<package_path>]
+      Usage: ipm link [<package_path>]
 
       Create a symlink for the package in ~/.atom/packages. The package in the
       current working directory is linked if no path is given.
 
-      Run `apm links` to view all the currently linked packages.
+      Run `ipm links` to view all the currently linked packages.
     """
     options.alias('h', 'help').describe('help', 'Print this usage message')
     options.alias('d', 'dev').boolean('dev').describe('dev', 'Link to ~/.atom/dev/packages')

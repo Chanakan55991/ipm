@@ -26,12 +26,12 @@ class List extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm list
-             apm list --themes
-             apm list --packages
-             apm list --installed
-             apm list --installed --bare > my-packages.txt
-             apm list --json
+      Usage: ipm list
+             ipm list --themes
+             ipm list --packages
+             ipm list --installed
+             ipm list --installed --bare > my-packages.txt
+             ipm list --json
 
       List all the installed packages and also the packages bundled with Atom.
     """

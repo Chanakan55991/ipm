@@ -19,7 +19,7 @@ class Rebuild extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm rebuild [<name> [<name> ...]]
+      Usage: ipm rebuild [<name> [<name> ...]]
 
       Rebuild the given modules currently installed in the node_modules folder
       in the current working directory.

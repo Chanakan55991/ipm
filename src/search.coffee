@@ -15,9 +15,9 @@ class Search extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm search <package_name>
+      Usage: ipm search <package_name>
 
-      Search for Atom packages/themes on the atom.io registry.
+      Search for Inkdrop packages/themes on the www.inkdrop.info registry.
     """
     options.alias('h', 'help').describe('help', 'Print this usage message')
     options.boolean('json').describe('json', 'Output matching packages as JSON array')
@@ -81,7 +81,7 @@ class Search extends Command
           label
 
         console.log()
-        console.log "Use `apm install` to install them or visit #{'http://atom.io/packages'.underline} to read more about them."
+        console.log "Use `ipm install` to install them or visit #{'https://www.inkdrop.info/packages'.underline} to read more about them."
         console.log()
 
       callback()

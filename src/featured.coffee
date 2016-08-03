@@ -14,12 +14,12 @@ class Featured extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm featured
-             apm featured --themes
-             apm featured --compatible 0.49.0
+      Usage: ipm featured
+             ipm featured --themes
+             ipm featured --compatible 0.49.0
 
-      List the Atom packages and themes that are currently featured in the
-      atom.io registry.
+      List the Inkdrop packages and themes that are currently featured in the
+      Inkdrop registry.
     """
     options.alias('h', 'help').describe('help', 'Print this usage message')
     options.alias('t', 'themes').boolean('themes').describe('themes', 'Only list themes')
@@ -76,7 +76,7 @@ class Featured extends Command
           label
 
         console.log()
-        console.log "Use `apm install` to install them or visit #{'http://atom.io/packages'.underline} to read more about them."
+        console.log "Use `ipm install` to install them or visit #{'http://atom.io/packages'.underline} to read more about them."
         console.log()
 
       callback()

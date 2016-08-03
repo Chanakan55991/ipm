@@ -18,7 +18,7 @@ class Uninstall extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm uninstall <package_name>...
+      Usage: ipm uninstall <package_name>...
 
       Delete the installed package(s) from the ~/.atom/packages directory.
     """

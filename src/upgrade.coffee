@@ -28,9 +28,9 @@ class Upgrade extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm upgrade
-             apm upgrade --list
-             apm upgrade [<package_name>...]
+      Usage: ipm upgrade
+             ipm upgrade --list
+             ipm upgrade [<package_name>...]
 
       Upgrade out of date packages installed to ~/.atom/packages
 

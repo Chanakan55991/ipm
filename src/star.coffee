@@ -20,11 +20,11 @@ class Star extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm star <package_name>...
+      Usage: ipm star <package_name>...
 
-      Star the given packages on https://atom.io
+      Star the given packages on https://www.inkdrop.info
 
-      Run `apm stars` to see all your starred packages.
+      Run `ipm stars` to see all your starred packages.
     """
     options.alias('h', 'help').describe('help', 'Print this usage message')
     options.boolean('installed').describe('installed', 'Star all packages in ~/.atom/packages')

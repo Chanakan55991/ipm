@@ -59,7 +59,7 @@ class Clean extends Command
     options = yargs(argv).wrap(100)
 
     options.usage """
-      Usage: apm clean
+      Usage: ipm clean
 
       Deletes all packages in the node_modules folder that are not referenced
       as a dependency in the package.json file.

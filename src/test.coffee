@@ -15,7 +15,7 @@ class Test extends Command
 
     options.usage """
       Usage:
-        apm test
+        ipm test
 
       Runs the package's tests contained within the spec directory (relative
       to the current working directory).

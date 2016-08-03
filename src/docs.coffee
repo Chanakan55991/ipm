@@ -12,7 +12,7 @@ class Docs extends View
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm docs [options] <package_name>
+      Usage: ipm docs [options] <package_name>
 
       Open a package's homepage in the default browser.
     """

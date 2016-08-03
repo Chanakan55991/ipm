@@ -32,14 +32,14 @@ class Install extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm install [<package_name>...]
-             apm install <package_name>@<package_version>
-             apm install <git_remote>
-             apm install <github_username>/<github_project>
-             apm install --packages-file my-packages.txt
-             apm i (with any of the previous argument usage)
+      Usage: ipm install [<package_name>...]
+             ipm install <package_name>@<package_version>
+             ipm install <git_remote>
+             ipm install <github_username>/<github_project>
+             ipm install --packages-file my-packages.txt
+             ipm i (with any of the previous argument usage)
 
-      Install the given Atom package to ~/.atom/packages/<package_name>.
+      Install the given Inkdrop package.
 
       If no package name is given then all the dependencies in the package.json
       file are installed to the node_modules folder in the current working
@@ -49,7 +49,7 @@ class Install extends Command
       package names to install with optional versions using the
       `package-name@version` syntax.
     """
-    options.alias('c', 'compatible').string('compatible').describe('compatible', 'Only install packages/themes compatible with this Atom version')
+    options.alias('c', 'compatible').string('compatible').describe('compatible', 'Only install packages/themes compatible with this Inkdrop version')
     options.alias('h', 'help').describe('help', 'Print this usage message')
     options.alias('s', 'silent').boolean('silent').describe('silent', 'Set the npm log level to silent')
     options.alias('q', 'quiet').boolean('quiet').describe('quiet', 'Set the npm log level to warn')
@@ -175,7 +175,7 @@ class Install extends Command
 
     message += """
 
-      Run apm -v after installing Git to see what version has been detected.
+      Run ipm -v after installing Git to see what version has been detected.
     """
 
     message
@@ -333,7 +333,7 @@ class Install extends Command
         packageVersion ?= @getLatestCompatibleVersion(pack)
         unless packageVersion
           @logFailure()
-          callback("No available version compatible with the installed Atom version: #{@installedAtomVersion}")
+          callback("No available version compatible with the installed Inkdrop version: #{@installedAtomVersion}")
           return
 
         {tarball} = pack.versions[packageVersion]?.dist ? {}
@@ -495,7 +495,7 @@ class Install extends Command
       continue unless metadata
       continue if isDeprecatedPackage(pack.name, version)
 
-      engine = metadata.engines?.atom ? '*'
+      engine = metadata.engines?.inkdrop ? '*'
       continue unless semver.validRange(engine)
       continue unless semver.satisfies(@installedAtomVersion, engine)
 
@@ -637,9 +637,9 @@ class Install extends Command
         @isBundledPackage name, (isBundledPackage) =>
           if isBundledPackage
             console.error """
-              The #{name} package is bundled with Atom and should not be explicitly installed.
-              You can run `apm uninstall #{name}` to uninstall it and then the version bundled
-              with Atom will be used.
+              The #{name} package is bundled with Inkdrop and should not be explicitly installed.
+              You can run `ipm uninstall #{name}` to uninstall it and then the version bundled
+              with Inkdrop will be used.
             """.yellow
           @installRegisteredPackage({name, version}, options, nextInstallStep)
 

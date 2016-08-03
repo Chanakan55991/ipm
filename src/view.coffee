@@ -15,13 +15,13 @@ class View extends Command
     options = yargs(argv).wrap(100)
     options.usage """
 
-      Usage: apm view <package_name>
+      Usage: ipm view <package_name>
 
-      View information about a package/theme in the atom.io registry.
+      View information about a package/theme in the inkdrop registry.
     """
     options.alias('h', 'help').describe('help', 'Print this usage message')
     options.boolean('json').describe('json', 'Output featured packages as JSON array')
-    options.string('compatible').describe('compatible', 'Show the latest version compatible with this Atom version')
+    options.string('compatible').describe('compatible', 'Show the latest version compatible with this Inkdrop version')
 
   loadInstalledAtomVersion: (options, callback) ->
     process.nextTick =>
@@ -100,7 +100,7 @@ class View extends Command
         tree(items)
 
         console.log()
-        console.log "Run `apm install #{pack.name}` to install this package."
+        console.log "Run `ipm install #{pack.name}` to install this package."
         console.log()
 
       callback()
