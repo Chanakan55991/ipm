@@ -1,6 +1,6 @@
 {
   "context-menu": {
-    "atom-text-editor": [
+    ".CodeMirror": [
       {
         "label": "Toggle __package-name__",
         "command": "__package-name__:toggle"
@@ -9,7 +9,7 @@
   },
   "menu": [
     {
-      "label": "Packages",
+      "label": "Plugins",
       "submenu": [
         {
           "label": "__package-name__",

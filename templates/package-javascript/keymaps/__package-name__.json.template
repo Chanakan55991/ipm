@@ -1,5 +1,5 @@
 {
-  "atom-workspace": {
+  "body": {
     "ctrl-alt-o": "__package-name__:toggle"
   }
 }

@@ -9,7 +9,7 @@ module.exports =
 class Init extends Command
   @commandNames: ['init']
 
-  supportedSyntaxes: ['coffeescript', 'javascript']
+  supportedSyntaxes: ['javascript']
 
   parseOptions: (argv) ->
     options = yargs(argv).wrap(100)
@@ -112,7 +112,7 @@ class Init extends Command
 
   generateFromTemplate: (packagePath, templatePath, packageName) ->
     packageName ?= path.basename(packagePath)
-    packageAuthor = process.env.GITHUB_USER or 'atom'
+    packageAuthor = process.env.GITHUB_USER or 'inkdropapp'
 
     fs.makeTreeSync(packagePath)
 
