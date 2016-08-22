@@ -4,7 +4,7 @@ import __PackageName__MessageDialog from './__package-name__-message-dialog';
 
 module.exports = {
 
-  activate(state) {
+  activate() {
     inkdrop.components.registerClass(__PackageName__MessageDialog);
     inkdrop.layouts.addComponentToLayout('modals', '__PackageName__MessageDialog');
   },
