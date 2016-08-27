@@ -12,7 +12,7 @@ module.exports =
     process.env.ATOM_HOME ? path.join(@getAppDataPath(), 'inkdrop')
 
   getCacheDirectory: ->
-    path.join(@getAtomDirectory(), '.apm')
+    path.join(@getAtomDirectory(), '.ipm')
 
   getAppDataPath: ->
     switch process.platform
@@ -29,14 +29,14 @@ module.exports =
 
     apmFolder = path.resolve(__dirname, '..')
     appFolder = path.dirname(apmFolder)
-    if path.basename(apmFolder) is 'apm' and path.basename(appFolder) is 'app'
+    if path.basename(apmFolder) is 'ipm' and path.basename(appFolder) is 'app'
       asarPath = "#{appFolder}.asar"
       if fs.existsSync(asarPath)
         return process.nextTick -> callback(asarPath)
 
     apmFolder = path.resolve(__dirname, '..', '..', '..')
     appFolder = path.dirname(apmFolder)
-    if path.basename(apmFolder) is 'apm' and path.basename(appFolder) is 'app'
+    if path.basename(apmFolder) is 'ipm' and path.basename(appFolder) is 'app'
       asarPath = "#{appFolder}.asar"
       if fs.existsSync(asarPath)
         return process.nextTick -> callback(asarPath)
@@ -76,10 +76,10 @@ module.exports =
       else process.arch  # On BSD and Linux we use current machine's arch.
 
   getUserConfigPath: ->
-    path.resolve(@getAtomDirectory(), '.apmrc')
+    path.resolve(@getAtomDirectory(), '.ipmrc')
 
   getGlobalConfigPath: ->
-    path.resolve(@getAtomDirectory(), '.apm', '.apmrc')
+    path.resolve(@getAtomDirectory(), '.ipm', '.ipmrc')
 
   isWin32: ->
     process.platform is 'win32'
