@@ -13,6 +13,7 @@ configureRequest = (requestOptions, callback) ->
   loadNpm ->
     requestOptions.proxy ?= npm.config.get('https-proxy') or npm.config.get('proxy') or process.env.HTTPS_PROXY or process.env.HTTP_PROXY
     requestOptions.strictSSL ?= npm.config.get('strict-ssl')
+    requestOptions.gzip = true
 
     # Bump request timeout on CI to 30 minutes
     requestOptions.timeout = 30 * 60 * 1000 if process.env.JANKY_SHA1
