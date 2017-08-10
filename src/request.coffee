@@ -55,7 +55,7 @@ module.exports =
 
   getErrorMessage: (response, body) ->
     if response?.statusCode is 503
-      'www.inkdrop.info is temporarily unavailable, please try again later.'
+      'api.inkdrop.info is temporarily unavailable, please try again later.'
     else
       body?.message ? body?.error ? body
 

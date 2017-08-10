@@ -83,7 +83,7 @@ class Stars extends Command
       label
 
     console.log()
-    console.log "Use `ipm stars --install` to install them all or visit #{'https://www.inkdrop.info/packages'.underline} to read more about them."
+    console.log "Use `ipm stars --install` to install them all or visit #{'https://app.inkdrop.info/plugins'.underline} to read more about them."
     console.log()
     callback()
 
