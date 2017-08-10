@@ -219,7 +219,7 @@ class Publish extends Command
     if process.platform is 'darwin'
       process.stdout.write ' \uD83D\uDC4D  \uD83D\uDCE6  \uD83C\uDF89'
 
-    process.stdout.write "\nCheck it out at https://www.inkdrop.info/plugins/#{pack.name}\n"
+    process.stdout.write "\nCheck it out at https://app.inkdrop.info/plugins/#{pack.name}\n"
 
   loadMetadata: ->
     metadataPath = path.resolve('package.json')

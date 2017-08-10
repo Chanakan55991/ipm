@@ -53,7 +53,7 @@ class Login extends Command
 
       Before you can publish packages, you'll need an API token.
 
-      Visit your account page on Inkdrop #{'https://www.inkdrop.info/account'.underline},
+      Visit your account page on Inkdrop #{'https://app.inkdrop.info/'.underline},
       copy the token and paste it below when prompted.
 
     """
@@ -64,7 +64,7 @@ class Login extends Command
   openURL: (state) ->
     return Q(state) if state.token
 
-    open('https://www.inkdrop.info/account/api-keys')
+    open('https://app.inkdrop.info/api-keys')
 
   getToken: (state) =>
     return Q(state) if state.token
