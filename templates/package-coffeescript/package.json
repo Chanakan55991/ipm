@@ -11,7 +11,7 @@
   "repository": "https://github.com/__package-author__/__package-name__",
   "license": "MIT",
   "engines": {
-    "atom": ">=2.1.0 <3.0.0"
+    "inkdrop": ">=3.7.3 <4.0.0"
   },
   "dependencies": {
   }
