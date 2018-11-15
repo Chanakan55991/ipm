@@ -9,7 +9,13 @@ module.exports =
     if process.platform is 'win32' then process.env.USERPROFILE else process.env.HOME
 
   getAtomDirectory: ->
-    process.env.ATOM_HOME ? path.join(@getAppDataPath(), 'inkdrop')
+    process.env.INKDROP_HOME ? path.join(@getAppDataPath(), 'inkdrop')
+
+  getRustupHomeDirPath: ->
+    if process.env.RUSTUP_HOME
+      process.env.RUSTUP_HOME
+    else
+      path.join(@getHomeDirectory(), '.multirust')
 
   getCacheDirectory: ->
     path.join(@getAtomDirectory(), '.ipm')
@@ -24,8 +30,8 @@ module.exports =
         process.env.APPDATA
 
   getResourcePath: (callback) ->
-    if process.env.ATOM_RESOURCE_PATH
-      return process.nextTick -> callback(process.env.ATOM_RESOURCE_PATH)
+    if process.env.INKDROP_RESOURCE_PATH
+      return process.nextTick -> callback(process.env.INKDROP_RESOURCE_PATH)
 
     apmFolder = path.resolve(__dirname, '..')
     appFolder = path.dirname(apmFolder)
@@ -52,28 +58,23 @@ module.exports =
         unless fs.existsSync(appLocation)
           appLocation = '/usr/share/inkdrop/resources/app.asar'
         process.nextTick -> callback(appLocation)
-      when 'win32'
-        process.nextTick ->
-          programFilesPath = path.join(process.env.ProgramFiles, 'Inkdrop', 'resources', 'app.asar')
-          callback(programFilesPath)
 
   getReposDirectory: ->
-    process.env.ATOM_REPOS_HOME ? path.join(@getHomeDirectory(), 'github')
+    process.env.INKDROP_REPOS_HOME ? path.join(@getHomeDirectory(), 'github')
 
   getElectronUrl: ->
-    process.env.ATOM_ELECTRON_URL ? 'https://atom.io/download/atom-shell'
+    process.env.INKDROP_ELECTRON_URL ? 'https://atom.io/download/electron'
 
   getAtomPackagesUrl: ->
-    process.env.ATOM_PACKAGES_URL ? "#{@getAtomApiUrl()}/packages"
+    process.env.INKDROP_PACKAGES_URL ? "#{@getAtomApiUrl()}/packages"
 
   getAtomApiUrl: ->
-    process.env.ATOM_API_URL ? 'https://api.inkdrop.info/v1'
+    process.env.INKDROP_API_URL ? 'https://api.inkdrop.info/v1'
 
   getElectronArch: ->
     switch process.platform
       when 'darwin' then 'x64'
-      when 'win32' then 'ia32'
-      else process.arch  # On BSD and Linux we use current machine's arch.
+      else process.env.INKDROP_ARCH ? process.arch
 
   getUserConfigPath: ->
     path.resolve(@getAtomDirectory(), '.ipmrc')
@@ -83,9 +84,6 @@ module.exports =
 
   isWin32: ->
     process.platform is 'win32'
-
-  isWindows64Bit: ->
-    fs.existsSync "C:\\Windows\\SysWow64\\Notepad.exe"
 
   x86ProgramFilesDirectory: ->
     process.env["ProgramFiles(x86)"] or process.env["ProgramFiles"]

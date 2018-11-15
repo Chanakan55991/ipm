@@ -4,8 +4,8 @@ catch error
   # Gracefully handle keytar failing to load due to missing library on Linux
   if process.platform is 'linux'
     keytar =
-      findPassword: ->
-      replacePassword: ->
+      findPassword: -> Promise.reject()
+      setPassword: -> Promise.reject()
   else
     throw error
 
@@ -17,21 +17,23 @@ module.exports =
   # callback - A function to call with an error as the first argument and a
   #            string token as the second argument.
   getToken: (callback) ->
-    if token = keytar.findPassword(tokenName)
-      callback(null, token)
-      return
-
-    if token = process.env.ATOM_ACCESS_TOKEN
-      callback(null, token)
-      return
-
-    callback """
-      No Inkdrop API token in keychain
-      Run `ipm login` or set the `ATOM_ACCESS_TOKEN` environment variable.
-    """
+    keytar.findPassword(tokenName)
+      .then (token) ->
+        if token
+          callback(null, token)
+        else
+          Promise.reject()
+      .catch ->
+        if token = process.env.INKDROP_ACCESS_TOKEN
+          callback(null, token)
+        else
+          callback """
+            No Inkdrop API token in keychain
+            Run `ipm login` or set the `INKDROP_ACCESS_TOKEN` environment variable.
+          """
 
   # Save the given token to the keychain.
   #
   # token - A string token to save.
   saveToken: (token) ->
-    keytar.replacePassword(tokenName, 'inkdrop', token)
+    keytar.setPassword(tokenName, 'inkdrop', token)

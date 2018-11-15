@@ -12,6 +12,7 @@ class Rebuild extends Command
   @commandNames: ['rebuild']
 
   constructor: ->
+    super()
     @atomNodeDirectory = path.join(config.getAtomDirectory(), '.node-gyp')
     @atomNpmPath = require.resolve('npm/bin/npm-cli')
 
@@ -37,22 +38,14 @@ class Rebuild extends Command
   forkNpmRebuild: (options, callback) ->
     process.stdout.write 'Rebuilding modules '
 
-    rebuildArgs = [
-      '--globalconfig'
-      config.getGlobalConfigPath()
-      '--userconfig'
-      config.getUserConfigPath()
-      'rebuild'
-      '--runtime=electron'
-      "--target=#{@electronVersion}"
-      "--arch=#{config.getElectronArch()}"
-    ]
-    rebuildArgs = rebuildArgs.concat(options.argv._)
+    rebuildArgs = ['--globalconfig', config.getGlobalConfigPath(), '--userconfig', config.getUserConfigPath(), 'rebuild']
+    rebuildArgs.push(@getNpmBuildFlags()...)
+    rebuildArgs.push(options.argv._...)
 
     if vsArgs = @getVisualStudioFlags()
       rebuildArgs.push(vsArgs)
 
-    env = _.extend({}, process.env, HOME: @atomNodeDirectory)
+    env = _.extend({}, process.env, {HOME: @atomNodeDirectory, RUSTUP_HOME: config.getRustupHomeDirPath()})
     env.USERPROFILE = env.HOME if config.isWin32()
     @addBuildEnvVars(env)
 

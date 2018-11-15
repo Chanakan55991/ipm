@@ -13,6 +13,7 @@ class Dedupe extends Command
   @commandNames: ['dedupe']
 
   constructor: ->
+    super()
     @atomDirectory = config.getAtomDirectory()
     @atomPackagesDirectory = path.join(@atomDirectory, 'packages')
     @atomNodeDirectory = path.join(@atomDirectory, '.node-gyp')
@@ -33,13 +34,10 @@ class Dedupe extends Command
 
   installNode: (callback) ->
     installNodeArgs = ['install']
-    installNodeArgs.push("--runtime=electron")
-    installNodeArgs.push("--target=#{@electronVersion}")
-    installNodeArgs.push("--dist-url=#{config.getElectronUrl()}")
-    installNodeArgs.push("--arch=#{config.getElectronArch()}")
+    installNodeArgs.push(@getNpmBuildFlags()...)
     installNodeArgs.push('--ensure')
 
-    env = _.extend({}, process.env, HOME: @atomNodeDirectory)
+    env = _.extend({}, process.env, {HOME: @atomNodeDirectory, RUSTUP_HOME: config.getRustupHomeDirPath()})
     env.USERPROFILE = env.HOME if config.isWin32()
 
     fs.makeTreeSync(@atomDirectory)
@@ -72,9 +70,7 @@ class Dedupe extends Command
 
   forkDedupeCommand: (options, callback) ->
     dedupeArgs = ['--globalconfig', config.getGlobalConfigPath(), '--userconfig', config.getUserConfigPath(), 'dedupe']
-    dedupeArgs.push("--runtime=electron")
-    dedupeArgs.push("--target=#{@electronVersion}")
-    dedupeArgs.push("--arch=#{config.getElectronArch()}")
+    dedupeArgs.push(@getNpmBuildFlags()...)
     dedupeArgs.push('--silent') if options.argv.silent
     dedupeArgs.push('--quiet') if options.argv.quiet
 
@@ -83,7 +79,7 @@ class Dedupe extends Command
 
     dedupeArgs.push(packageName) for packageName in options.argv._
 
-    env = _.extend({}, process.env, HOME: @atomNodeDirectory)
+    env = _.extend({}, process.env, {HOME: @atomNodeDirectory, RUSTUP_HOME: config.getRustupHomeDirPath()})
     env.USERPROFILE = env.HOME if config.isWin32()
     dedupeOptions = {env}
     dedupeOptions.cwd = options.cwd if options.cwd

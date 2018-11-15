@@ -24,27 +24,32 @@ describe "apm upgrade", ->
 
     app = express()
     app.get '/packages/test-module', (request, response) ->
-      response.sendfile path.join(__dirname, 'fixtures', 'upgrade-test-module.json')
+      response.sendFile path.join(__dirname, 'fixtures', 'upgrade-test-module.json')
     app.get '/packages/multi-module', (request, response) ->
-      response.sendfile path.join(__dirname, 'fixtures', 'upgrade-multi-version.json')
+      response.sendFile path.join(__dirname, 'fixtures', 'upgrade-multi-version.json')
     app.get '/packages/different-repo', (request, response) ->
-      response.sendfile path.join(__dirname, 'fixtures', 'upgrade-different-repo.json')
+      response.sendFile path.join(__dirname, 'fixtures', 'upgrade-different-repo.json')
     server =  http.createServer(app)
-    server.listen(3000)
 
-    atomHome = temp.mkdirSync('apm-home-dir-')
-    atomApp = temp.mkdirSync('apm-app-dir-')
-    packagesDir = path.join(atomHome, 'packages')
-    process.env.ATOM_HOME = atomHome
-    process.env.ATOM_ELECTRON_URL = "http://localhost:3000/node"
-    process.env.ATOM_PACKAGES_URL = "http://localhost:3000/packages"
-    process.env.ATOM_ELECTRON_VERSION = 'v0.10.3'
-    process.env.ATOM_RESOURCE_PATH = atomApp
+    live = false
+    server.listen 3000, '127.0.0.1', ->
+      atomHome = temp.mkdirSync('apm-home-dir-')
+      atomApp = temp.mkdirSync('apm-app-dir-')
+      packagesDir = path.join(atomHome, 'packages')
+      process.env.ATOM_HOME = atomHome
+      process.env.ATOM_ELECTRON_URL = "http://localhost:3000/node"
+      process.env.ATOM_PACKAGES_URL = "http://localhost:3000/packages"
+      process.env.ATOM_ELECTRON_VERSION = 'v0.10.3'
+      process.env.ATOM_RESOURCE_PATH = atomApp
 
-    fs.writeFileSync(path.join(atomApp, 'package.json'), JSON.stringify(version: '0.10.0'))
+      fs.writeFileSync(path.join(atomApp, 'package.json'), JSON.stringify(version: '0.10.0'))
+      live = true
+    waitsFor -> live
 
   afterEach ->
-    server.close()
+    done = false
+    server.close -> done = true
+    waitsFor -> done
 
   it "does not display updates for unpublished packages", ->
     fs.writeFileSync(path.join(packagesDir, 'not-published', 'package.json'), JSON.stringify({name: 'not-published', version: '1.0', repository: 'https://github.com/a/b'}))
@@ -172,7 +177,7 @@ describe "apm upgrade", ->
     beforeEach ->
       delete process.env.ATOM_ELECTRON_URL
       delete process.env.ATOM_PACKAGES_URL
-      delete process.env.ATOM_ELECTRON_VERSION
+      process.env.ATOM_ELECTRON_VERSION = "0.22.0"
 
       gitRepo = path.join(__dirname, "fixtures", "test-git-repo.git")
       cloneUrl = "file://#{gitRepo}"

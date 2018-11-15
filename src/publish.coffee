@@ -17,6 +17,7 @@ class Publish extends Command
   @commandNames: ['publish']
 
   constructor: ->
+    super()
     @userConfigPath = config.getUserConfigPath()
     @atomNpmPath = require.resolve('npm/bin/npm-cli')
 
@@ -65,11 +66,12 @@ class Publish extends Command
   # Push a tag to the remote repository.
   #
   #  tag - The tag to push.
+  #  pack - The package metadata.
   #  callback - The callback function to invoke with an error as the first
   #             argument.
-  pushVersion: (tag, callback) ->
+  pushVersion: (tag, pack, callback) ->
     process.stdout.write "Pushing #{tag} tag "
-    pushArgs = ['push', 'origin', 'HEAD', tag]
+    pushArgs = ['push', Packages.getRemote(pack), 'HEAD', tag]
     @spawn 'git', pushArgs, (args...) =>
       @logCommandResults(callback, args...)
 
@@ -252,7 +254,7 @@ class Publish extends Command
     upstreamUrl ?= repo.getConfigValue('remote.origin.url')
 
     unless upstreamUrl
-      throw new Error('Package must pushed up to GitHub before publishing: https://help.github.com/articles/create-a-repo')
+      throw new Error('Package must be pushed up to GitHub before publishing: https://help.github.com/articles/create-a-repo')
 
   # Rename package if necessary
   renamePackage: (pack, name, callback) ->
@@ -350,7 +352,7 @@ class Publish extends Command
           @versionPackage version, (error, tag) =>
             return callback(error) if error?
 
-            @pushVersion tag, (error) =>
+            @pushVersion tag, pack, (error) =>
               return callback(error) if error?
 
               @waitForTagToBeAvailable pack, tag, =>

@@ -17,6 +17,7 @@ class Develop extends Command
   @commandNames: ['dev', 'develop']
 
   constructor: ->
+    super()
     @atomDirectory = config.getAtomDirectory()
     @atomDevPackagesDirectory = path.join(@atomDirectory, 'dev', 'packages')
 
@@ -32,7 +33,7 @@ class Develop extends Command
 
       If no directory is specified then the repository is cloned to
       ~/github/<package_name>. The default folder to clone packages into can
-      be overridden using the ATOM_REPOS_HOME environment variable.
+      be overridden using the INKDROP_REPOS_HOME environment variable.
 
       Once this command completes you can open a dev window from atom using
       cmd-shift-o to run the package out of the newly cloned repository.
