@@ -22,7 +22,7 @@ class Star extends Command
 
       Usage: ipm star <package_name>...
 
-      Star the given packages on https://www.inkdrop.info
+      Star the given packages on https://inkdrop.app
 
       Run `ipm stars` to see all your starred packages.
     """

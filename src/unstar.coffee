@@ -16,7 +16,7 @@ class Unstar extends Command
 
       Usage: ipm unstar <package_name>...
 
-      Unstar the given packages on https://www.inkdrop.info
+      Unstar the given packages on https://inkdrop.app
 
       Run `ipm stars` to see all your starred packages.
     """

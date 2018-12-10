@@ -66,7 +66,7 @@ parseOptions = (args=[]) ->
   options = yargs(args).wrap(100)
   options.usage """
 
-    ipm - Inkdrop Package Manager powered by https://www.inkdrop.info
+    ipm - Inkdrop Package Manager powered by https://inkdrop.app
 
     Usage: ipm <command>
 

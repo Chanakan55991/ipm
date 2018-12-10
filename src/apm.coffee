@@ -69,7 +69,7 @@ module.exports =
     process.env.INKDROP_PACKAGES_URL ? "#{@getAtomApiUrl()}/packages"
 
   getAtomApiUrl: ->
-    process.env.INKDROP_API_URL ? 'https://api.inkdrop.info/v1'
+    process.env.INKDROP_API_URL ? 'https://api.inkdrop.app/v1'
 
   getElectronArch: ->
     switch process.platform
