@@ -90,7 +90,7 @@ class Command
         version = @normalizeVersion(version)
         @installedAtomVersion = version if semver.valid(version)
 
-      @electronVersion = process.env.ATOM_ELECTRON_VERSION ? electronVersion
+      @electronVersion = process.env.INKDROP_ELECTRON_VERSION ? electronVersion
       unless @electronVersion?
         throw new Error('Could not determine Electron version')
 
@@ -110,6 +110,9 @@ class Command
   getVisualStudioFlags: ->
     if vsVersion = config.getInstalledVisualStudioFlag()
       "--msvs_version=#{vsVersion}"
+
+  getNpmBuildFlags: ->
+    ["--runtime=electron", "--target=#{@electronVersion}", "--dist-url=#{config.getElectronUrl()}", "--arch=#{config.getElectronArch()}"]
 
   updateWindowsEnv: (env) ->
     env.USERPROFILE = env.HOME

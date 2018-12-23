@@ -15,9 +15,6 @@ configureRequest = (requestOptions, callback) ->
     requestOptions.strictSSL ?= npm.config.get('strict-ssl')
     requestOptions.gzip = true
 
-    # Bump request timeout on CI to 30 minutes
-    requestOptions.timeout = 30 * 60 * 1000 if process.env.JANKY_SHA1
-
     userAgent = npm.config.get('user-agent') ? "AtomApm/#{require('../package.json').version}"
     requestOptions.headers ?= {}
     requestOptions.headers['User-Agent'] ?= userAgent
@@ -55,7 +52,7 @@ module.exports =
 
   getErrorMessage: (response, body) ->
     if response?.statusCode is 503
-      'api.inkdrop.info is temporarily unavailable, please try again later.'
+      'api.inkdrop.app is temporarily unavailable, please try again later.'
     else
       body?.message ? body?.error ? body
 

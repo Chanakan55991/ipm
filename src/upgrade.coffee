@@ -21,6 +21,7 @@ class Upgrade extends Command
   @commandNames: ['upgrade', 'outdated', 'update']
 
   constructor: ->
+    super()
     @atomDirectory = config.getAtomDirectory()
     @atomPackagesDirectory = path.join(@atomDirectory, 'packages')
 
@@ -72,6 +73,10 @@ class Upgrade extends Command
     else
       @loadInstalledAtomMetadata(callback)
 
+  folderIsRepo: (pack) ->
+    repoGitFolderPath = path.join(@atomPackagesDirectory, pack.name, '.git')
+    return fs.existsSync repoGitFolderPath
+
   getLatestVersion: (pack, callback) ->
     requestSettings =
       url: "#{config.getAtomPackagesUrl()}/#{pack.name}"
@@ -109,7 +114,7 @@ class Upgrade extends Command
       args = ['fetch', 'origin', 'master']
       git.addGitToEnv(process.env)
       @spawn command, args, {cwd: repoPath}, (code, stderr='', stdout='') ->
-        return callback(code) unless code is 0
+        return callback(new Error('Exit code: ' + code + ' - ' + stderr)) unless code is 0
         repo = Git.open(repoPath)
         sha = repo.getReferenceTarget(repo.getUpstreamBranch('refs/heads/master'))
         if sha isnt pack.apmInstallSource.sha
@@ -122,14 +127,14 @@ class Upgrade extends Command
 
   getAvailableUpdates: (packages, callback) ->
     getLatestVersionOrSha = (pack, done) =>
-      if pack.apmInstallSource?.type is 'git'
+      if @folderIsRepo(pack) and pack.apmInstallSource?.type is 'git'
         @getLatestSha pack, (err, sha) ->
           done(err, {pack, sha})
       else
         @getLatestVersion pack, (err, latestVersion) ->
           done(err, {pack, latestVersion})
 
-    async.map packages, getLatestVersionOrSha, (error, updates) ->
+    async.mapLimit packages, 10, getLatestVersionOrSha, (error, updates) ->
       return callback(error) if error?
 
       updates = _.filter updates, (update) -> update.latestVersion? or update.sha?

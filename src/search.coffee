@@ -17,7 +17,7 @@ class Search extends Command
 
       Usage: ipm search <package_name>
 
-      Search for Inkdrop packages/themes on the www.inkdrop.info registry.
+      Search for Inkdrop packages/themes on the inkdrop.app registry.
     """
     options.alias('h', 'help').describe('help', 'Print this usage message')
     options.boolean('json').describe('json', 'Output matching packages as JSON array')
@@ -81,7 +81,7 @@ class Search extends Command
           label
 
         console.log()
-        console.log "Use `ipm install` to install them or visit #{'https://app.inkdrop.info/plugins'.underline} to read more about them."
+        console.log "Use `ipm install` to install them or visit #{'https://my.inkdrop.app/plugins'.underline} to read more about them."
         console.log()
 
       callback()

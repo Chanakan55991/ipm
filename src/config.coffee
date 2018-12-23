@@ -9,6 +9,7 @@ class Config extends Command
   @commandNames: ['config']
 
   constructor: ->
+    super()
     atomDirectory = apm.getAtomDirectory()
     @atomNodeDirectory = path.join(atomDirectory, '.node-gyp')
     @atomNpmPath = require.resolve('npm/bin/npm-cli')
@@ -33,7 +34,7 @@ class Config extends Command
     configArgs = ['--globalconfig', apm.getGlobalConfigPath(), '--userconfig', apm.getUserConfigPath(), 'config']
     configArgs = configArgs.concat(options.argv._)
 
-    env = _.extend({}, process.env, HOME: @atomNodeDirectory)
+    env = _.extend({}, process.env, {HOME: @atomNodeDirectory, RUSTUP_HOME: apm.getRustupHomeDirPath()})
     configOptions = {env}
 
     @fork @atomNpmPath, configArgs, configOptions, (code, stderr='', stdout='') ->
