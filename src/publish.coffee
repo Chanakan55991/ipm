@@ -303,9 +303,9 @@ class Publish extends Command
 
       semverRange is 'latest'
 
-    if pack.engines?.atom?
-      unless semver.validRange(pack.engines.atom)
-        throw new Error("The Atom engine range in the package.json file is invalid: #{pack.engines.atom}")
+    if pack.engines?.inkdrop?
+      unless semver.validRange(pack.engines.inkdrop)
+        throw new Error("The Atom engine range in the package.json file is invalid: #{pack.engines.inkdrop}")
 
     for packageName, semverRange of pack.dependencies
       unless isValidRange(semverRange)

@@ -96,7 +96,7 @@ class Upgrade extends Command
           continue unless semver.valid(version)
           continue unless metadata
 
-          engine = metadata.engines?.atom ? '*'
+          engine = metadata.engines?.inkdrop ? '*'
           continue unless semver.validRange(engine)
           continue unless semver.satisfies(atomVersion, engine)
 
