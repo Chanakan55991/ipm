@@ -41,7 +41,7 @@ commandClasses = [
   require './links'
   require './link'
   require './list'
-  require './login'
+  #require './login'
   require './publish'
   require './rebuild'
   require './rebuild-module-cache'
