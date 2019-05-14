@@ -6,11 +6,17 @@ module.exports = {
 
   activate() {
     inkdrop.components.registerClass(__PackageName__MessageDialog);
-    inkdrop.layouts.addComponentToLayout('modals', '__PackageName__MessageDialog');
+    inkdrop.layouts.addComponentToLayout(
+      'modal',
+      '__PackageName__MessageDialog'
+    )
   },
 
   deactivate() {
-    inkdrop.layouts.removeComponentFromLayout('modals', '__PackageName__MessageDialog');
+    inkdrop.layouts.removeComponentFromLayout(
+      'modal',
+      '__PackageName__MessageDialog'
+    )
     inkdrop.components.deleteClass(__PackageName__MessageDialog);
   }
 
