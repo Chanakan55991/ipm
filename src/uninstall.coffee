@@ -43,6 +43,7 @@ class Uninstall extends Command
         json: true
         headers:
           authorization: token
+          'x-api-key': 1
 
       request.post requestOptions, (error, response, body) -> callback()
 

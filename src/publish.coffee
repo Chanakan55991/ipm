@@ -117,6 +117,7 @@ class Publish extends Command
         json: true
         headers:
           authorization: token
+          'x-api-key': 1
       request.get requestSettings, (error, response, body={}) ->
         if error?
           callback(error)
@@ -154,6 +155,7 @@ class Publish extends Command
             repository: repository
           headers:
             authorization: token
+            'x-api-key': 1
         request.post requestSettings, (error, response, body={}) =>
           if error?
             callback(error)
@@ -185,6 +187,7 @@ class Publish extends Command
           rename: options.rename
         headers:
           authorization: token
+          'x-api-key': 1
       request.post requestSettings, (error, response, body={}) ->
         if error?
           callback(error)

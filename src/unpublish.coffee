@@ -44,6 +44,7 @@ class Unpublish extends Command
         uri: "#{config.getAtomPackagesUrl()}/#{packageName}"
         headers:
           authorization: token
+          'x-api-key': 1
         json: true
 
       options.uri += "/versions/#{packageVersion}" if packageVersion

@@ -41,7 +41,7 @@ class Stars extends Command
       Login.getTokenOrLogin (error, token) =>
         return callback(error) if error?
 
-        requestSettings.headers = authorization: token
+        requestSettings.headers = authorization: token, 'x-api-key': 1
         @requestStarredPackages(requestSettings, callback)
 
   requestStarredPackages: (requestSettings, callback) ->

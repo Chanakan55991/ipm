@@ -30,6 +30,7 @@ class Unstar extends Command
       url: "#{config.getAtomPackagesUrl()}/#{packageName}/star"
       headers:
         authorization: token
+        'x-api-key': 1
     request.del requestSettings, (error, response, body={}) =>
       if error?
         @logFailure()

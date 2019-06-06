@@ -37,6 +37,7 @@ class Star extends Command
       url: "#{config.getAtomPackagesUrl()}/#{packageName}/star"
       headers:
         authorization: token
+        'x-api-key': 1
     request.post requestSettings, (error, response, body={}) =>
       if error?
         @logFailure()
