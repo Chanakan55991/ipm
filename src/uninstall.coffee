@@ -90,6 +90,3 @@ class Uninstall extends Command
         @logFailure()
         uninstallError = new Error("Failed to delete #{packageName}: #{error.message}")
         break
-
-    async.eachSeries uninstallsToRegister, @registerUninstall.bind(this), ->
-      callback(uninstallError)
