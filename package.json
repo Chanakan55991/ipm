@@ -1,7 +1,7 @@
 {
   "name": "inkdrop-package-manager",
   "description": "Inkdrop package manager",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "license": "MIT",
   "repository": {
     "type": "git",
