@@ -23,7 +23,7 @@ class Link extends Command
       Run `ipm links` to view all the currently linked packages.
     """
     options.alias('h', 'help').describe('help', 'Print this usage message')
-    options.alias('d', 'dev').boolean('dev').describe('dev', 'Link to ~/.atom/dev/packages')
+    options.alias('d', 'dev').boolean('dev').describe('dev', 'Link to ~/.inkdrop/dev/packages')
 
   run: (options) ->
     {callback} = options
