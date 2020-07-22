@@ -451,7 +451,7 @@ class Install extends Command
 
       engine = metadata.engines?.inkdrop ? '*'
       continue unless semver.validRange(engine)
-      continue unless semver.satisfies(@installedAtomVersion, engine)
+      continue unless semver.minSatisfying([@installedAtomVersion, '4.7.0'], engine)
 
       latestVersion ?= version
       latestVersion = version if semver.gt(version, latestVersion)

@@ -98,7 +98,7 @@ class Upgrade extends Command
 
           engine = metadata.engines?.inkdrop ? '*'
           continue unless semver.validRange(engine)
-          continue unless semver.satisfies(atomVersion, engine)
+          continue unless semver.minSatisfying([atomVersion, '4.7.0'], engine)
 
           latestVersion = version if semver.gt(version, latestVersion)
 
