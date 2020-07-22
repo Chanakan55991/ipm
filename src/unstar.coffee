@@ -11,7 +11,7 @@ class Unstar extends Command
   @commandNames: ['unstar']
 
   parseOptions: (argv) ->
-    options = yargs(argv).wrap(100)
+    options = yargs(argv).wrap(Math.min(100, yargs.terminalWidth()))
     options.usage """
 
       Usage: ipm unstar <package_name>...
@@ -30,6 +30,7 @@ class Unstar extends Command
       url: "#{config.getAtomPackagesUrl()}/#{packageName}/star"
       headers:
         authorization: token
+        'x-api-key': 1
     request.del requestSettings, (error, response, body={}) =>
       if error?
         @logFailure()

@@ -14,7 +14,7 @@ class Unpublish extends Command
   @commandNames: ['unpublish']
 
   parseOptions: (argv) ->
-    options = yargs(argv).wrap(100)
+    options = yargs(argv).wrap(Math.min(100, yargs.terminalWidth()))
 
     options.usage """
       Usage: ipm unpublish [<package_name>]
@@ -44,6 +44,7 @@ class Unpublish extends Command
         uri: "#{config.getAtomPackagesUrl()}/#{packageName}"
         headers:
           authorization: token
+          'x-api-key': 1
         json: true
 
       options.uri += "/versions/#{packageVersion}" if packageVersion

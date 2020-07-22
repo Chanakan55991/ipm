@@ -12,7 +12,7 @@ class Link extends Command
   @commandNames: ['link', 'ln']
 
   parseOptions: (argv) ->
-    options = yargs(argv).wrap(100)
+    options = yargs(argv).wrap(Math.min(100, yargs.terminalWidth()))
     options.usage """
 
       Usage: ipm link [<package_path>] [--name <package_name>]
@@ -23,7 +23,7 @@ class Link extends Command
       Run `ipm links` to view all the currently linked packages.
     """
     options.alias('h', 'help').describe('help', 'Print this usage message')
-    options.alias('d', 'dev').boolean('dev').describe('dev', 'Link to ~/.atom/dev/packages')
+    options.alias('d', 'dev').boolean('dev').describe('dev', 'Link to ~/.inkdrop/dev/packages')
 
   run: (options) ->
     {callback} = options

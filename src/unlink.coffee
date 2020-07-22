@@ -17,7 +17,7 @@ class Unlink extends Command
     @packagesPath = path.join(config.getAtomDirectory(), 'packages')
 
   parseOptions: (argv) ->
-    options = yargs(argv).wrap(100)
+    options = yargs(argv).wrap(Math.min(100, yargs.terminalWidth()))
     options.usage """
 
       Usage: ipm unlink [<package_path>]
@@ -39,7 +39,7 @@ class Unlink extends Command
   unlinkPath: (pathToUnlink) ->
     try
       process.stdout.write "Unlinking #{pathToUnlink} "
-      fs.unlinkSync(pathToUnlink) if fs.isSymbolicLinkSync(pathToUnlink)
+      fs.unlinkSync(pathToUnlink)
       @logSuccess()
     catch error
       @logFailure()

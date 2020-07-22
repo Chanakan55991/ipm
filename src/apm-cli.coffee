@@ -63,7 +63,7 @@ for commandClass in commandClasses
     commands[name] = commandClass
 
 parseOptions = (args=[]) ->
-  options = yargs(args).wrap(100)
+  options = yargs(args).wrap(Math.min(100, yargs.terminalWidth()))
   options.usage """
 
     ipm - Inkdrop Package Manager powered by https://inkdrop.app
@@ -104,10 +104,10 @@ printVersions = (args, callback) ->
       getAtomVersion (atomVersion) ->
         if args.json
           versions =
-            apm: apmVersion
+            ipm: apmVersion
             npm: npmVersion
             node: nodeVersion
-            atom: atomVersion
+            inkdrop: atomVersion
             python: pythonVersion
             git: gitVersion
             nodeArch: process.arch
@@ -119,10 +119,10 @@ printVersions = (args, callback) ->
           gitVersion ?= ''
           atomVersion ?= ''
           versions =  """
-            #{'apm'.red}  #{apmVersion.red}
+            #{'ipm'.red}  #{apmVersion.red}
             #{'npm'.green}  #{npmVersion.green}
             #{'node'.blue} #{nodeVersion.blue} #{process.arch.blue}
-            #{'atom'.cyan} #{atomVersion.cyan}
+            #{'inkdrop'.cyan} #{atomVersion.cyan}
             #{'python'.yellow} #{pythonVersion.yellow}
             #{'git'.magenta} #{gitVersion.magenta}
           """
