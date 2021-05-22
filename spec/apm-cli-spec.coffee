@@ -39,10 +39,10 @@ describe 'apm command line interface', ->
         expect(console.error).not.toHaveBeenCalled()
         expect(console.log).toHaveBeenCalled()
         lines = console.log.argsForCall[0][0].split('\n')
-        expect(lines[0]).toBe "apm  #{require('../package.json').version}"
-        expect(lines[1]).toBe "npm  #{require('npm/package.json').version}"
+        expect(lines[0]).toBe "ipm  #{require('../package.json').version}"
+        expect(lines[1]).toBe "ipm  #{require('npm/package.json').version}"
         expect(lines[2]).toBe "node #{process.versions.node} #{process.arch}"
-        expect(lines[3]).toBe "atom #{testAtomVersion}"
+        expect(lines[3]).toBe "inkdrop #{testAtomVersion}"
 
   describe 'when the version flag is specified but env.INKDROP_RESOURCE_PATH is not set', ->
     it 'finds the installed Atom and prints the version', ->
@@ -58,7 +58,7 @@ describe 'apm command line interface', ->
         expect(console.error).not.toHaveBeenCalled()
         expect(console.log).toHaveBeenCalled()
         lines = console.log.argsForCall[0][0].split('\n')
-        expect(lines[0]).toBe "apm  #{require('../package.json').version}"
+        expect(lines[0]).toBe "ipm  #{require('../package.json').version}"
         expect(lines[1]).toBe "npm  #{require('npm/package.json').version}"
         expect(lines[2]).toBe "node #{process.versions.node} #{process.arch}"
 
@@ -78,7 +78,7 @@ describe 'apm command line interface', ->
           expect(console.error).not.toHaveBeenCalled()
           expect(console.log).toHaveBeenCalled()
           lines = console.log.argsForCall[0][0].split('\n')
-          expect(lines[3]).toBe "atom #{testAtomVersion}"
+          expect(lines[3]).toBe "inkdrop #{testAtomVersion}"
 
   describe 'when an unrecognized command is specified', ->
     it 'prints an error message and exits', ->
