@@ -36,7 +36,6 @@ class Init extends Command
     options.alias('s', 'syntax').string('syntax').describe('syntax', 'Sets package syntax to CoffeeScript or JavaScript')
     options.alias('t', 'theme').string('theme').describe('theme', 'Generates a basic theme')
     options.alias('l', 'language').string('language').describe('language', 'Generates a basic language package')
-    options.alias('c', 'convert').string('convert').describe('convert', 'Path or URL to TextMate bundle/theme to convert')
     options.alias('h', 'help').describe('help', 'Print this usage message')
     options.string('template').describe('template', 'Path to the package or theme template')
 
@@ -44,24 +43,18 @@ class Init extends Command
     {callback} = options
     options = @parseOptions(options.commandArgs)
     if options.argv.package?.length > 0
-      if options.argv.convert
-        @convertPackage(options.argv.convert, options.argv.package, callback)
-      else
-        packagePath = path.resolve(options.argv.package)
-        syntax = options.argv.syntax or @supportedSyntaxes[0]
-        if syntax not in @supportedSyntaxes
-          return callback("You must specify one of #{@supportedSyntaxes.join(', ')} after the --syntax argument")
-        templatePath = @getTemplatePath(options.argv, "package-#{syntax}")
-        @generateFromTemplate(packagePath, templatePath)
-        callback()
+      packagePath = path.resolve(options.argv.package)
+      syntax = options.argv.syntax or @supportedSyntaxes[0]
+      if syntax not in @supportedSyntaxes
+        return callback("You must specify one of #{@supportedSyntaxes.join(', ')} after the --syntax argument")
+      templatePath = @getTemplatePath(options.argv, "package-#{syntax}")
+      @generateFromTemplate(packagePath, templatePath)
+      callback()
     else if options.argv.theme?.length > 0
-      if options.argv.convert
-        @convertTheme(options.argv.convert, options.argv.theme, callback)
-      else
-        themePath = path.resolve(options.argv.theme)
-        templatePath = @getTemplatePath(options.argv, 'theme')
-        @generateFromTemplate(themePath, templatePath)
-        callback()
+      themePath = path.resolve(options.argv.theme)
+      templatePath = @getTemplatePath(options.argv, 'theme')
+      @generateFromTemplate(themePath, templatePath)
+      callback()
     else if options.argv.language?.length > 0
       languagePath = path.resolve(options.argv.language)
       languageName = path.basename(languagePath).replace(/^language-/, '')
@@ -75,40 +68,6 @@ class Init extends Command
       callback('You must specify a path after the --theme argument')
     else
       callback('You must specify either --package, --theme or --language to `ipm init`')
-
-  convertPackage: (sourcePath, destinationPath, callback) ->
-    unless destinationPath
-      callback("Specify directory to create package in using --package")
-      return
-
-    PackageConverter = require './package-converter'
-    converter = new PackageConverter(sourcePath, destinationPath)
-    converter.convert (error) =>
-      if error?
-        callback(error)
-      else
-        destinationPath = path.resolve(destinationPath)
-        templatePath = path.resolve(__dirname, '..', 'templates', 'bundle')
-        @generateFromTemplate(destinationPath, templatePath)
-        callback()
-
-  convertTheme: (sourcePath, destinationPath, callback) ->
-    unless destinationPath
-      callback("Specify directory to create theme in using --theme")
-      return
-
-    ThemeConverter = require './theme-converter'
-    converter = new ThemeConverter(sourcePath, destinationPath)
-    converter.convert (error) =>
-      if error?
-        callback(error)
-      else
-        destinationPath = path.resolve(destinationPath)
-        templatePath = path.resolve(__dirname, '..', 'templates', 'theme')
-        @generateFromTemplate(destinationPath, templatePath)
-        fs.removeSync(path.join(destinationPath, 'styles', 'colors.less'))
-        fs.removeSync(path.join(destinationPath, 'LICENSE.md'))
-        callback()
 
   generateFromTemplate: (packagePath, templatePath, packageName) ->
     packageName ?= path.basename(packagePath)
