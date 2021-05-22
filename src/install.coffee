@@ -69,9 +69,7 @@ class Install extends Command
     installArgs.push('--silent') if options.argv.silent
     installArgs.push('--quiet') if options.argv.quiet
     installArgs.push('--production') if options.argv.production
-
-    if vsArgs = @getVisualStudioFlags()
-      installArgs.push(vsArgs)
+    installArgs.push('--verbose') if options.argv.verbose
 
     fs.makeTreeSync(@atomDirectory)
 
@@ -164,9 +162,6 @@ class Install extends Command
     installArgs.push('--silent') if options.argv.silent
     installArgs.push('--quiet') if options.argv.quiet
     installArgs.push('--production') if options.argv.production
-
-    if vsArgs = @getVisualStudioFlags()
-      installArgs.push(vsArgs)
 
     fs.makeTreeSync(@atomDirectory)
 
@@ -378,9 +373,6 @@ class Install extends Command
     buildArgs.push(path.resolve(__dirname, '..', 'native-module'))
     buildArgs.push(@getNpmBuildFlags()...)
 
-    if vsArgs = @getVisualStudioFlags()
-      buildArgs.push(vsArgs)
-
     fs.makeTreeSync(@atomDirectory)
 
     env = _.extend({}, process.env, {HOME: @atomNodeDirectory, RUSTUP_HOME: config.getRustupHomeDirPath()})
@@ -526,16 +518,17 @@ class Install extends Command
       ]
 
   cloneFirstValidGitUrl: (urls, cloneDir, options, callback) ->
-    async.detectSeries urls, (url, next) =>
+    async.detectSeries(urls, (url, next) =>
       @cloneNormalizedUrl url, cloneDir, options, (error) ->
-        next(not error)
-    , (result) ->
-      if not result
+        next(null, not error)
+    , (err, result) ->
+      if err or not result
         invalidUrls = "Couldn't clone #{urls.join(' or ')}"
         invalidUrlsError = new Error(invalidUrls)
         callback(invalidUrlsError)
       else
         callback()
+    )
 
   cloneNormalizedUrl: (url, cloneDir, options, callback) ->
     # Require here to avoid circular dependency
