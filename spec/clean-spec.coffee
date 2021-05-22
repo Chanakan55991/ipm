@@ -36,9 +36,9 @@ describe 'apm clean', ->
     server.listen 3000, '127.0.0.1', ->
       console.log "Server started"
       atomHome = temp.mkdirSync('apm-home-dir-')
-      process.env.ATOM_HOME = atomHome
-      process.env.ATOM_ELECTRON_URL = "http://localhost:3000/node"
-      process.env.ATOM_ELECTRON_VERSION = 'v10.20.1'
+      process.env.INKDROP_HOME = atomHome
+      process.env.INKDROP_ELECTRON_URL = "http://localhost:3000/node"
+      process.env.INKDROP_ELECTRON_VERSION = 'v10.20.1'
       process.env.npm_config_registry = 'http://localhost:3000/'
 
       moduleDirectory = path.join(temp.mkdirSync('apm-test-module-'), 'test-module-with-dependencies')

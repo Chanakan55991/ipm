@@ -17,7 +17,7 @@ describe 'apm view', ->
 
     live = false
     server.listen 3000, '127.0.0.1', ->
-      process.env.ATOM_PACKAGES_URL = "http://localhost:3000"
+      process.env.INKDROP_PACKAGES_URL = "http://localhost:3000"
       live = true
     waitsFor -> live
 

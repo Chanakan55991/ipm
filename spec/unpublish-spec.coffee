@@ -28,8 +28,8 @@ describe 'apm unpublish', ->
 
     live = false
     server.listen 3000, '127.0.0.1', ->
-      process.env.ATOM_HOME = temp.mkdirSync('apm-home-dir-')
-      process.env.ATOM_API_URL = "http://localhost:3000"
+      process.env.INKDROP_HOME = temp.mkdirSync('apm-home-dir-')
+      process.env.INKDROP_API_URL = "http://localhost:3000"
       live = true
     waitsFor -> live
 

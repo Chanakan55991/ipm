@@ -11,7 +11,7 @@ describe "apm config", ->
     silenceOutput()
 
     atomHome = temp.mkdirSync('apm-home-dir-')
-    process.env.ATOM_HOME = atomHome
+    process.env.INKDROP_HOME = atomHome
     userConfigPath = path.join(atomHome, '.apmrc')
 
     # Make sure the cache used is the one for the test env
@@ -26,7 +26,7 @@ describe "apm config", ->
         callback.callCount is 1
 
       runs ->
-        expect(process.stdout.write.argsForCall[0][0].trim()).toBe path.join(process.env.ATOM_HOME, '.apm')
+        expect(process.stdout.write.argsForCall[0][0].trim()).toBe path.join(process.env.INKDROP_HOME, '.apm')
 
   describe "apm config set", ->
     it "sets the value in the user config", ->

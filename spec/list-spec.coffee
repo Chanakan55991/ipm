@@ -17,7 +17,7 @@ createFakePackage = (type, metadata) ->
   packagesFolder = switch type
     when "user", "git" then "packages"
     when "dev" then path.join("dev", "packages")
-  targetFolder = path.join(process.env.ATOM_HOME, packagesFolder, metadata.name)
+  targetFolder = path.join(process.env.INKDROP_HOME, packagesFolder, metadata.name)
   fs.makeTreeSync targetFolder
   fs.writeFileSync path.join(targetFolder, 'package.json'), JSON.stringify(metadata)
 
@@ -25,7 +25,7 @@ removeFakePackage = (type, name) ->
   packagesFolder = switch type
     when "user", "git" then "packages"
     when "dev" then path.join("dev", "packages")
-  targetFolder = path.join(process.env.ATOM_HOME, packagesFolder, name)
+  targetFolder = path.join(process.env.INKDROP_HOME, packagesFolder, name)
   fs.removeSync(targetFolder)
 
 describe 'apm list', ->
@@ -42,9 +42,9 @@ describe 'apm list', ->
           name: 'test-module'
           version: '1.0.0'
     fs.writeFileSync(path.join(resourcePath, 'package.json'), JSON.stringify(_atomPackages: atomPackages))
-    process.env.ATOM_RESOURCE_PATH = resourcePath
+    process.env.INKDROP_RESOURCE_PATH = resourcePath
     atomHome = temp.mkdirSync('apm-home-dir-')
-    process.env.ATOM_HOME = atomHome
+    process.env.INKDROP_HOME = atomHome
 
     createFakePackage "user",
       name: "user-package"
@@ -60,7 +60,7 @@ describe 'apm list', ->
         source: "git+ssh://git@github.com:user/repo.git"
         sha: "abcdef1234567890"
 
-    badPackagePath = path.join(process.env.ATOM_HOME, "packages", ".bin")
+    badPackagePath = path.join(process.env.INKDROP_HOME, "packages", ".bin")
     fs.makeTreeSync badPackagePath
     fs.writeFileSync path.join(badPackagePath, "file.txt"), "some fake stuff"
 

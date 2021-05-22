@@ -16,13 +16,13 @@ describe 'apm install', ->
     silenceOutput()
 
     atomHome = temp.mkdirSync('apm-home-dir-')
-    process.env.ATOM_HOME = atomHome
+    process.env.INKDROP_HOME = atomHome
 
     # Make sure the cache used is the one for the test env
     delete process.env.npm_config_cache
 
     resourcePath = temp.mkdirSync('atom-resource-path-')
-    process.env.ATOM_RESOURCE_PATH = resourcePath
+    process.env.INKDROP_RESOURCE_PATH = resourcePath
 
   describe "when installing an atom package", ->
     server = null
@@ -75,10 +75,10 @@ describe 'apm install', ->
       live = false
       server.listen 3000, '127.0.0.1', ->
         atomHome = temp.mkdirSync('apm-home-dir-')
-        process.env.ATOM_HOME = atomHome
-        process.env.ATOM_ELECTRON_URL = "http://localhost:3000/node"
-        process.env.ATOM_PACKAGES_URL = "http://localhost:3000/packages"
-        process.env.ATOM_ELECTRON_VERSION = 'v10.20.1'
+        process.env.INKDROP_HOME = atomHome
+        process.env.INKDROP_ELECTRON_URL = "http://localhost:3000/node"
+        process.env.INKDROP_PACKAGES_URL = "http://localhost:3000/packages"
+        process.env.INKDROP_ELECTRON_VERSION = 'v10.20.1'
         process.env.npm_config_registry = 'http://localhost:3000/'
         live = true
       waitsFor -> live
@@ -238,7 +238,7 @@ describe 'apm install', ->
     describe "when the packages directory does not exist", ->
       it "creates the packages directory and any intermediate directories that do not exist", ->
         atomHome = temp.path('apm-home-dir-')
-        process.env.ATOM_HOME = atomHome
+        process.env.INKDROP_HOME = atomHome
         expect(fs.existsSync(atomHome)).toBe false
 
         callback = jasmine.createSpy('callback')
@@ -464,9 +464,9 @@ describe 'apm install', ->
           count is 1
 
         runs ->
-          pkgJsonPath = path.join(process.env.ATOM_HOME, 'packages', 'test-git-repo', 'package.json')
+          pkgJsonPath = path.join(process.env.INKDROP_HOME, 'packages', 'test-git-repo', 'package.json')
 
-      it 'installs the repository with a working dir to $ATOM_HOME/packages', ->
+      it 'installs the repository with a working dir to $INKDROP_HOME/packages', ->
         expect(fs.existsSync(pkgJsonPath)).toBeTruthy()
 
       it 'adds apmInstallSource to the package.json with the source and sha', ->
@@ -484,7 +484,7 @@ describe 'apm install', ->
         allDeps = deps.concat(devDeps)
         expect(allDeps).toEqual ["tiny-node-module-one", "tiny-node-module-two"]
         allDeps.forEach (dep) ->
-          modPath = path.join(process.env.ATOM_HOME, 'packages', 'test-git-repo', 'node_modules', dep)
+          modPath = path.join(process.env.INKDROP_HOME, 'packages', 'test-git-repo', 'node_modules', dep)
           expect(fs.existsSync(modPath)).toBeTruthy()
 
     describe 'when installing a Git URL and --json is specified', ->
@@ -501,14 +501,14 @@ describe 'apm install', ->
           callback.callCount is 1
 
         runs ->
-          pkgJsonPath = path.join(process.env.ATOM_HOME, 'packages', 'test-git-repo', 'package.json')
+          pkgJsonPath = path.join(process.env.INKDROP_HOME, 'packages', 'test-git-repo', 'package.json')
 
       it 'logs the installation path and the package metadata for a package installed via git url', ->
         sha = '8ae432341ac6708aff9bb619eb015da14e9d0c0f'
         expect(process.stdout.write.calls.length).toBe 0
         json = JSON.parse(console.log.argsForCall[0][0])
         expect(json.length).toBe 1
-        expect(json[0].installPath).toBe path.join(process.env.ATOM_HOME, 'packages', 'test-git-repo')
+        expect(json[0].installPath).toBe path.join(process.env.INKDROP_HOME, 'packages', 'test-git-repo')
         expect(json[0].metadata.name).toBe 'test-git-repo'
         expect(json[0].metadata.apmInstallSource).toEqual
           type: 'git'
@@ -527,9 +527,9 @@ describe 'apm install', ->
         expect(process.stdout.write.calls.length).toBe 0
         json = JSON.parse(console.log.argsForCall[0][0])
         expect(json.length).toBe 2
-        expect(json[0].installPath).toBe path.join(process.env.ATOM_HOME, 'packages', 'test-module')
+        expect(json[0].installPath).toBe path.join(process.env.INKDROP_HOME, 'packages', 'test-module')
         expect(json[0].metadata.name).toBe 'test-module'
-        expect(json[1].installPath).toBe path.join(process.env.ATOM_HOME, 'packages', 'test-module2')
+        expect(json[1].installPath).toBe path.join(process.env.INKDROP_HOME, 'packages', 'test-module2')
         expect(json[1].metadata.name).toBe 'test-module2'
 
     describe "with a space in node-gyp's path", ->

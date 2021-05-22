@@ -9,9 +9,9 @@ describe 'apm link/unlink', ->
     spyOnToken()
 
   describe "when the dev flag is false (the default)", ->
-    it 'symlinks packages to $ATOM_HOME/packages', ->
+    it 'symlinks packages to $INKDROP_HOME/packages', ->
       atomHome = temp.mkdirSync('apm-home-dir-')
-      process.env.ATOM_HOME = atomHome
+      process.env.INKDROP_HOME = atomHome
       packageToLink = temp.mkdirSync('a-package-')
       process.chdir(packageToLink)
       callback = jasmine.createSpy('callback')
@@ -36,9 +36,9 @@ describe 'apm link/unlink', ->
         expect(fs.existsSync(path.join(atomHome, 'packages', path.basename(packageToLink)))).toBeFalsy()
 
   describe "when the dev flag is true", ->
-    it 'symlinks packages to $ATOM_HOME/dev/packages', ->
+    it 'symlinks packages to $INKDROP_HOME/dev/packages', ->
       atomHome = temp.mkdirSync('apm-home-dir-')
-      process.env.ATOM_HOME = atomHome
+      process.env.INKDROP_HOME = atomHome
       packageToLink = temp.mkdirSync('a-package-')
       process.chdir(packageToLink)
       callback = jasmine.createSpy('callback')
@@ -63,9 +63,9 @@ describe 'apm link/unlink', ->
         expect(fs.existsSync(path.join(atomHome, 'dev', 'packages', path.basename(packageToLink)))).toBeFalsy()
 
   describe "when the hard flag is true", ->
-    it "unlinks the package from both $ATOM_HOME/packages and $ATOM_HOME/dev/packages", ->
+    it "unlinks the package from both $INKDROP_HOME/packages and $INKDROP_HOME/dev/packages", ->
       atomHome = temp.mkdirSync('apm-home-dir-')
-      process.env.ATOM_HOME = atomHome
+      process.env.INKDROP_HOME = atomHome
       packageToLink = temp.mkdirSync('a-package-')
       process.chdir(packageToLink)
       callback = jasmine.createSpy('callback')
@@ -93,9 +93,9 @@ describe 'apm link/unlink', ->
         expect(fs.existsSync(path.join(atomHome, 'packages', path.basename(packageToLink)))).toBeFalsy()
 
   describe "when the all flag is true", ->
-    it "unlinks all packages in $ATOM_HOME/packages and $ATOM_HOME/dev/packages", ->
+    it "unlinks all packages in $INKDROP_HOME/packages and $INKDROP_HOME/dev/packages", ->
       atomHome = temp.mkdirSync('apm-home-dir-')
-      process.env.ATOM_HOME = atomHome
+      process.env.INKDROP_HOME = atomHome
       packageToLink1 = temp.mkdirSync('a-package-')
       packageToLink2 = temp.mkdirSync('a-package-')
       packageToLink3 = temp.mkdirSync('a-package-')
@@ -133,7 +133,7 @@ describe 'apm link/unlink', ->
   describe "when the package name is numeric", ->
     it "still links and unlinks normally", ->
       atomHome = temp.mkdirSync('apm-home-dir-')
-      process.env.ATOM_HOME = atomHome
+      process.env.INKDROP_HOME = atomHome
       numericPackageName = temp.mkdirSync('42')
       callback = jasmine.createSpy('callback')
 
@@ -159,7 +159,7 @@ describe 'apm link/unlink', ->
   describe "when the package name is set after --name", ->
     it "still links and unlinks normally", ->
       atomHome = temp.mkdirSync('apm-home-dir-')
-      process.env.ATOM_HOME = atomHome
+      process.env.INKDROP_HOME = atomHome
       packagePath = temp.mkdirSync('new-package')
       packageName = 'new-package-name'
       callback = jasmine.createSpy('callback')

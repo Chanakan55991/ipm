@@ -30,7 +30,7 @@ describe 'apm command line interface', ->
       testAtomVersion = '0.0.0'
       tempAtomResourcePath = temp.mkdirSync('apm-resource-dir-')
       fs.writeFileSync(path.join(tempAtomResourcePath, 'package.json'), JSON.stringify(version: testAtomVersion))
-      process.env.ATOM_RESOURCE_PATH = tempAtomResourcePath
+      process.env.INKDROP_RESOURCE_PATH = tempAtomResourcePath
 
       waitsFor ->
         callback.callCount is 1
@@ -44,12 +44,12 @@ describe 'apm command line interface', ->
         expect(lines[2]).toBe "node #{process.versions.node} #{process.arch}"
         expect(lines[3]).toBe "atom #{testAtomVersion}"
 
-  describe 'when the version flag is specified but env.ATOM_RESOURCE_PATH is not set', ->
+  describe 'when the version flag is specified but env.INKDROP_RESOURCE_PATH is not set', ->
     it 'finds the installed Atom and prints the version', ->
       callback = jasmine.createSpy('callback')
       apm.run(['-v', '--no-color'], callback)
 
-      process.env.ATOM_RESOURCE_PATH = ''
+      process.env.INKDROP_RESOURCE_PATH = ''
 
       waitsFor ->
         callback.callCount is 1
@@ -69,7 +69,7 @@ describe 'apm command line interface', ->
 
         testAtomVersion = 'unknown'
         tempAtomResourcePath = temp.mkdirSync('apm-resource-dir-')
-        process.env.ATOM_RESOURCE_PATH = tempAtomResourcePath
+        process.env.INKDROP_RESOURCE_PATH = tempAtomResourcePath
 
         waitsFor ->
           callback.callCount is 1

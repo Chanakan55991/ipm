@@ -13,7 +13,7 @@ describe 'apm disable', ->
 
   it 'disables an enabled package', ->
     atomHome = temp.mkdirSync('apm-home-dir-')
-    process.env.ATOM_HOME = atomHome
+    process.env.INKDROP_HOME = atomHome
     callback = jasmine.createSpy('callback')
     configFilePath = path.join(atomHome, 'config.cson')
 
@@ -52,7 +52,7 @@ describe 'apm disable', ->
 
   it 'does nothing if a package is already disabled', ->
     atomHome = temp.mkdirSync('apm-home-dir-')
-    process.env.ATOM_HOME = atomHome
+    process.env.INKDROP_HOME = atomHome
     callback = jasmine.createSpy('callback')
     configFilePath = path.join(atomHome, 'config.cson')
 
@@ -84,7 +84,7 @@ describe 'apm disable', ->
 
   it 'produces an error if config.cson doesn\'t exist', ->
     atomHome = temp.mkdirSync('apm-home-dir-')
-    process.env.ATOM_HOME = atomHome
+    process.env.INKDROP_HOME = atomHome
     callback = jasmine.createSpy('callback')
 
     runs ->
@@ -99,7 +99,7 @@ describe 'apm disable', ->
 
   it 'complains if user supplies no packages', ->
     atomHome = temp.mkdirSync('apm-home-dir-')
-    process.env.ATOM_HOME = atomHome
+    process.env.INKDROP_HOME = atomHome
     callback = jasmine.createSpy('callback')
 
     runs ->

@@ -20,7 +20,7 @@ describe "apm upgrade", ->
     silenceOutput()
 
     atomHome = temp.mkdirSync('apm-home-dir-')
-    process.env.ATOM_HOME = atomHome
+    process.env.INKDROP_HOME = atomHome
 
     app = express()
     app.get '/packages/test-module', (request, response) ->
@@ -36,11 +36,11 @@ describe "apm upgrade", ->
       atomHome = temp.mkdirSync('apm-home-dir-')
       atomApp = temp.mkdirSync('apm-app-dir-')
       packagesDir = path.join(atomHome, 'packages')
-      process.env.ATOM_HOME = atomHome
-      process.env.ATOM_ELECTRON_URL = "http://localhost:3000/node"
-      process.env.ATOM_PACKAGES_URL = "http://localhost:3000/packages"
-      process.env.ATOM_ELECTRON_VERSION = 'v10.20.1'
-      process.env.ATOM_RESOURCE_PATH = atomApp
+      process.env.INKDROP_HOME = atomHome
+      process.env.INKDROP_ELECTRON_URL = "http://localhost:3000/node"
+      process.env.INKDROP_PACKAGES_URL = "http://localhost:3000/packages"
+      process.env.INKDROP_ELECTRON_VERSION = 'v10.20.1'
+      process.env.INKDROP_RESOURCE_PATH = atomApp
 
       fs.writeFileSync(path.join(atomApp, 'package.json'), JSON.stringify(version: '0.10.0'))
       live = true
@@ -146,7 +146,7 @@ describe "apm upgrade", ->
       expect(console.log.argsForCall[1][0]).toContain 'empty'
 
   it "logs an error when the installed location of Atom cannot be found", ->
-    process.env.ATOM_RESOURCE_PATH = '/tmp/atom/is/not/installed/here'
+    process.env.INKDROP_RESOURCE_PATH = '/tmp/atom/is/not/installed/here'
     callback = jasmine.createSpy('callback')
     apm.run(['upgrade', '--list', '--no-color'], callback)
 
@@ -175,15 +175,15 @@ describe "apm upgrade", ->
     [pkgJsonPath] = []
 
     beforeEach ->
-      delete process.env.ATOM_ELECTRON_URL
-      delete process.env.ATOM_PACKAGES_URL
-      process.env.ATOM_ELECTRON_VERSION = "0.22.0"
+      delete process.env.INKDROP_ELECTRON_URL
+      delete process.env.INKDROP_PACKAGES_URL
+      process.env.INKDROP_ELECTRON_VERSION = "0.22.0"
 
       gitRepo = path.join(__dirname, "fixtures", "test-git-repo.git")
       cloneUrl = "file://#{gitRepo}"
 
       apmRun ["install", cloneUrl], ->
-        pkgJsonPath = path.join(process.env.ATOM_HOME, 'packages', 'test-git-repo', 'package.json')
+        pkgJsonPath = path.join(process.env.INKDROP_HOME, 'packages', 'test-git-repo', 'package.json')
         json = JSON.parse(fs.readFileSync(pkgJsonPath), 'utf8')
         json.apmInstallSource.sha = 'abcdef1234567890'
         fs.writeFileSync pkgJsonPath, JSON.stringify(json)

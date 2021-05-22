@@ -11,10 +11,10 @@ describe "apm develop", ->
     spyOnToken()
 
     atomHome = temp.mkdirSync('apm-home-dir-')
-    process.env.ATOM_HOME = atomHome
+    process.env.INKDROP_HOME = atomHome
 
     atomReposHome = temp.mkdirSync('apm-repos-home-dir-')
-    process.env.ATOM_REPOS_HOME = atomReposHome
+    process.env.INKDROP_REPOS_HOME = atomReposHome
 
     repoPath = path.join(atomReposHome, 'fake-package')
     linkedRepoPath = path.join(atomHome, 'dev', 'packages', 'fake-package')
@@ -37,7 +37,7 @@ describe "apm develop", ->
         expect(fs.existsSync(linkedRepoPath)).toBeFalsy()
 
   describe "when the repository hasn't been cloned", ->
-    it "clones the repository to ATOM_REPOS_HOME and links it to ATOM_HOME/dev/packages", ->
+    it "clones the repository to INKDROP_REPOS_HOME and links it to INKDROP_HOME/dev/packages", ->
       Develop = require '../lib/develop'
       spyOn(Develop.prototype, "getRepositoryUrl").andCallFake (packageName, callback) ->
         repoUrl = path.join(__dirname, 'fixtures', 'repo.git')
@@ -59,7 +59,7 @@ describe "apm develop", ->
         expect(fs.realpathSync(linkedRepoPath)).toBe fs.realpathSync(repoPath)
 
   describe "when the repository has already been cloned", ->
-    it "links it to ATOM_HOME/dev/packages", ->
+    it "links it to INKDROP_HOME/dev/packages", ->
       fs.makeTreeSync(repoPath)
       fs.writeFileSync(path.join(repoPath, "package.json"), "")
       callback = jasmine.createSpy('callback')

@@ -12,14 +12,14 @@ createPackage = (packageName, includeDev=false) ->
     devPackagePath = path.join(atomHome, 'dev', 'packages', packageName)
     fs.makeTreeSync(path.join(devPackagePath, 'lib'))
     fs.writeFileSync(path.join(devPackagePath, 'package.json'), "{}")
-  process.env.ATOM_HOME = atomHome
+  process.env.INKDROP_HOME = atomHome
   return {packagePath, devPackagePath}
 
 describe 'apm uninstall', ->
   beforeEach ->
     silenceOutput()
     spyOnToken()
-    process.env.ATOM_API_URL = 'http://localhost:5432'
+    process.env.INKDROP_API_URL = 'http://localhost:5432'
 
   describe 'when no package is specified', ->
     it 'logs an error and exits', ->
@@ -115,7 +115,7 @@ describe 'apm uninstall', ->
         devPackagePath = path.join(atomHome, 'dev', 'packages', 'test-package')
         fs.makeTreeSync(path.join(devPackagePath, 'lib'))
         fs.writeFileSync(path.join(devPackagePath, 'package.json'), "{}")
-        process.env.ATOM_HOME = atomHome
+        process.env.INKDROP_HOME = atomHome
 
         expect(fs.existsSync(packagePath)).toBeTruthy()
         callback = jasmine.createSpy('callback')

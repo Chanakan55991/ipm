@@ -31,11 +31,11 @@ describe 'apm rebuild', ->
     live = false
     server.listen 3000, '127.0.0.1', ->
       atomHome = temp.mkdirSync('apm-home-dir-')
-      process.env.ATOM_HOME = atomHome
-      process.env.ATOM_ELECTRON_URL = "http://localhost:3000/node"
-      process.env.ATOM_PACKAGES_URL = "http://localhost:3000/packages"
-      process.env.ATOM_ELECTRON_VERSION = 'v10.20.1'
-      process.env.ATOM_RESOURCE_PATH = temp.mkdirSync('atom-resource-path-')
+      process.env.INKDROP_HOME = atomHome
+      process.env.INKDROP_ELECTRON_URL = "http://localhost:3000/node"
+      process.env.INKDROP_PACKAGES_URL = "http://localhost:3000/packages"
+      process.env.INKDROP_ELECTRON_VERSION = 'v10.20.1'
+      process.env.INKDROP_RESOURCE_PATH = temp.mkdirSync('atom-resource-path-')
 
       originalPathEnv = process.env.PATH
       process.env.PATH = ""
