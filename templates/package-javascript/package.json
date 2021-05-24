@@ -7,7 +7,7 @@
   "repository": "https://github.com/__package-author__/__package-name__",
   "license": "MIT",
   "engines": {
-    "inkdrop": "^5.x"
+    "inkdrop": "^5.3.1"
   },
   "dependencies": {}
 }
