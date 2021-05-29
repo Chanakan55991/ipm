@@ -23,6 +23,7 @@
     "coffee": "coffee --compile --output lib src",
     "build": "npm run clean:lib && npm run coffee",
     "prepare": "npm run build",
+    "prepublishOnly": "npm run build",
     "postinstall": "node script/postinstall.js",
     "test": "npm run check-version && npm run lint && jasmine-focused --captureExceptions --coffee spec"
   },
