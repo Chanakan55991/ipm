@@ -140,9 +140,9 @@ class List extends Command
 
       unless options.argv.bare or options.argv.json
         if options.argv.themes
-          console.log "#{'Built-in Atom Themes'.cyan} (#{packages.length})"
+          console.log "#{'Built-in Inkdrop Themes'.cyan} (#{packages.length})"
         else
-          console.log "#{'Built-in Atom Packages'.cyan} (#{packages.length})"
+          console.log "#{'Built-in Inkdrop Packages'.cyan} (#{packages.length})"
 
       callback?(null, packages)
 
