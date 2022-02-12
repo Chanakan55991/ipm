@@ -11,11 +11,13 @@ var getInstallNodeVersion = require('./bundled-node-version')
 
 temp.track();
 
+const targetArch = process.env.npm_config_arch || process.arch
+
 var identifyArch = function() {
-  switch (process.arch) {
+  switch (targetArch) {
     case "ia32":  return "x86";
     case "arm":   return "armv" + process.config.variables.arm_version + "l";
-    default:      return process.arch;
+    default:      return targetArch;
   }
 };
 
@@ -84,7 +86,7 @@ var downloadNode = function(version, done) {
     getInstallNodeVersion(filename, function(error, installedVersion, installedArch) {
       if (error != null) {
         done(error);
-      } else if (installedVersion !== version || installedArch !== process.arch) {
+      } else if (installedVersion !== version || installedArch !== targetArch) {
         downloadFile();
       } else {
         done();
