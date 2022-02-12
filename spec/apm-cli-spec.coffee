@@ -40,7 +40,7 @@ describe 'apm command line interface', ->
         expect(console.log).toHaveBeenCalled()
         lines = console.log.argsForCall[0][0].split('\n')
         expect(lines[0]).toBe "ipm  #{require('../package.json').version}"
-        expect(lines[1]).toBe "ipm  #{require('npm/package.json').version}"
+        expect(lines[1]).toBe "npm  #{require('npm/package.json').version}"
         expect(lines[2]).toBe "node #{process.versions.node} #{process.arch}"
         expect(lines[3]).toBe "inkdrop #{testAtomVersion}"
 

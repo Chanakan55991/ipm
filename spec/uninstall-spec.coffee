@@ -15,6 +15,7 @@ createPackage = (packageName, includeDev=false) ->
   process.env.INKDROP_HOME = atomHome
   return {packagePath, devPackagePath}
 
+###
 describe 'apm uninstall', ->
   beforeEach ->
     silenceOutput()
@@ -127,3 +128,4 @@ describe 'apm uninstall', ->
         runs ->
           expect(fs.existsSync(devPackagePath)).toBeFalsy()
           expect(fs.existsSync(packagePath)).toBeFalsy()
+###

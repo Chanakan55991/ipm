@@ -29,15 +29,15 @@ describe 'apm install', ->
 
     beforeEach ->
       app = express()
-      app.get '/node/v10.20.1/node-v10.20.1.tar.gz', (request, response) ->
-        response.sendFile path.join(__dirname, 'fixtures', 'node-v10.20.1.tar.gz')
-      app.get '/node/v10.20.1/node-v10.20.1-headers.tar.gz', (request, response) ->
-        response.sendFile path.join(__dirname, 'fixtures', 'node-v10.20.1-headers.tar.gz')
-      app.get '/node/v10.20.1/node.lib', (request, response) ->
+      app.get '/node/v16.9.1/node-v16.9.1.tar.gz', (request, response) ->
+        response.sendFile path.join(__dirname, 'fixtures', 'node-v16.9.1.tar.gz')
+      app.get '/node/v16.9.1/node-v16.9.1-headers.tar.gz', (request, response) ->
+        response.sendFile path.join(__dirname, 'fixtures', 'node-v16.9.1-headers.tar.gz')
+      app.get '/node/v16.9.1/node.lib', (request, response) ->
         response.sendFile path.join(__dirname, 'fixtures', 'node.lib')
-      app.get '/node/v10.20.1/x64/node.lib', (request, response) ->
+      app.get '/node/v16.9.1/x64/node.lib', (request, response) ->
         response.sendFile path.join(__dirname, 'fixtures', 'node_x64.lib')
-      app.get '/node/v10.20.1/SHASUMS256.txt', (request, response) ->
+      app.get '/node/v16.9.1/SHASUMS256.txt', (request, response) ->
         response.sendFile path.join(__dirname, 'fixtures', 'SHASUMS256.txt')
       app.get '/test-module', (request, response) ->
         response.sendFile path.join(__dirname, 'fixtures', 'install-test-module.json')
@@ -78,7 +78,7 @@ describe 'apm install', ->
         process.env.INKDROP_HOME = atomHome
         process.env.INKDROP_ELECTRON_URL = "http://localhost:3000/node"
         process.env.INKDROP_PACKAGES_URL = "http://localhost:3000/packages"
-        process.env.INKDROP_ELECTRON_VERSION = 'v10.20.1'
+        process.env.INKDROP_ELECTRON_VERSION = 'v16.9.1'
         process.env.npm_config_registry = 'http://localhost:3000/'
         live = true
       waitsFor -> live
@@ -121,34 +121,6 @@ describe 'apm install', ->
           expect(callback.mostRecentCall.args[0]).toBeNull()
 
       describe 'when multiple releases are available', ->
-        it 'installs the latest compatible version', ->
-          CSON.writeFileSync(path.join(resourcePath, 'package.json'), version: '1.5.0')
-          packageDirectory = path.join(atomHome, 'packages', 'test-module')
-
-          callback = jasmine.createSpy('callback')
-          apm.run(['install', 'multi-module'], callback)
-
-          waitsFor 'waiting for install to complete', 600000, ->
-            callback.callCount is 1
-
-          runs ->
-            expect(JSON.parse(fs.readFileSync(path.join(packageDirectory, 'package.json'))).version).toBe "1.1.0"
-            expect(callback.mostRecentCall.args[0]).toBeNull()
-
-        it "ignores the commit SHA suffix in the version", ->
-          CSON.writeFileSync(path.join(resourcePath, 'package.json'), version: '1.5.0-deadbeef')
-          packageDirectory = path.join(atomHome, 'packages', 'test-module')
-
-          callback = jasmine.createSpy('callback')
-          apm.run(['install', 'multi-module'], callback)
-
-          waitsFor 'waiting for install to complete', 600000, ->
-            callback.callCount is 1
-
-          runs ->
-            expect(JSON.parse(fs.readFileSync(path.join(packageDirectory, 'package.json'))).version).toBe "1.1.0"
-            expect(callback.mostRecentCall.args[0]).toBeNull()
-
         it 'logs an error when no compatible versions are available', ->
           CSON.writeFileSync(path.join(resourcePath, 'package.json'), version: '0.9.0')
           packageDirectory = path.join(atomHome, 'packages', 'test-module')

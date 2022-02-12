@@ -61,6 +61,6 @@ describe 'apm view', ->
 
       runs ->
         expect(console.log.argsForCall[0][0]).toContain 'wrap-guide'
-        expect(console.log.argsForCall[1][0]).toContain '0.3.0'
-        expect(console.log.argsForCall[2][0]).toContain 'https://github.com/atom2/wrap-guide'
-        expect(console.log.argsForCall[3][0]).toContain 'old version'
+        expect(console.log.argsForCall[1][0]).toContain '0.14.0'
+        expect(console.log.argsForCall[2][0]).toContain 'https://github.com/atom/wrap-guide'
+        expect(console.log.argsForCall[3][0]).toContain 'new version'

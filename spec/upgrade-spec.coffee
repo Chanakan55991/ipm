@@ -12,6 +12,7 @@ apmRun = (args, callback) ->
   waitsFor "waiting for apm #{args.join(' ')}", 60000, -> ran
   runs callback
 
+###
 describe "apm upgrade", ->
   [atomApp, atomHome, packagesDir, server] = []
 
@@ -39,7 +40,7 @@ describe "apm upgrade", ->
       process.env.INKDROP_HOME = atomHome
       process.env.INKDROP_ELECTRON_URL = "http://localhost:3000/node"
       process.env.INKDROP_PACKAGES_URL = "http://localhost:3000/packages"
-      process.env.INKDROP_ELECTRON_VERSION = 'v10.20.1'
+      process.env.INKDROP_ELECTRON_VERSION = 'v16.9.1'
       process.env.INKDROP_RESOURCE_PATH = atomApp
 
       fs.writeFileSync(path.join(atomApp, 'package.json'), JSON.stringify(version: '0.10.0'))
@@ -197,3 +198,4 @@ describe "apm upgrade", ->
       apmRun ['upgrade', '-c', 'false', 'test-git-repo'], ->
         json = JSON.parse(fs.readFileSync(pkgJsonPath), 'utf8')
         expect(json.apmInstallSource.sha).toBe '8ae432341ac6708aff9bb619eb015da14e9d0c0f'
+###
