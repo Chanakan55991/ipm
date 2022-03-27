@@ -20,7 +20,7 @@ class RebuildModuleCache extends Command
       Usage: ipm rebuild-module-cache
 
       Rebuild the module cache for all the packages installed to
-      ~/.atom/packages
+      ~/.config/inkdrop/packages
 
       You can see the state of the module cache for a package by looking
       at the _atomModuleCache property in the package's package.json file.

@@ -22,15 +22,15 @@ class Unlink extends Command
 
       Usage: ipm unlink [<package_path>]
 
-      Delete the symlink in ~/.atom/packages for the package. The package in the
+      Delete the symlink in ~/.config/inkdrop/packages for the package. The package in the
       current working directory is unlinked if no path is given.
 
       Run `ipm links` to view all the currently linked packages.
     """
     options.alias('h', 'help').describe('help', 'Print this usage message')
-    options.alias('d', 'dev').boolean('dev').describe('dev', 'Unlink package from ~/.atom/dev/packages')
-    options.boolean('hard').describe('hard', 'Unlink package from ~/.atom/packages and ~/.atom/dev/packages')
-    options.alias('a', 'all').boolean('all').describe('all', 'Unlink all packages in ~/.atom/packages and ~/.atom/dev/packages')
+    options.alias('d', 'dev').boolean('dev').describe('dev', 'Unlink package from ~/.config/inkdrop/dev/packages')
+    options.boolean('hard').describe('hard', 'Unlink package from ~/.config/inkdrop/packages and ~/.config/inkdrop/dev/packages')
+    options.alias('a', 'all').boolean('all').describe('all', 'Unlink all packages in ~/.config/inkdrop/packages and ~/.config/inkdrop/dev/packages')
 
   getDevPackagePath: (packageName) -> path.join(@devPackagesPath, packageName)
 

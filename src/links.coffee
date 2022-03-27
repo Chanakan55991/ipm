@@ -22,8 +22,8 @@ class Links extends Command
 
       Usage: ipm links
 
-      List all of the symlinked atom packages in ~/.atom/packages and
-      ~/.atom/dev/packages.
+      List all of the symlinked atom packages in ~/.config/inkdrop/packages and
+      ~/.config/inkdrop/dev/packages.
     """
     options.alias('h', 'help').describe('help', 'Print this usage message')
 

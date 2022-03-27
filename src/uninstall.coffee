@@ -20,11 +20,11 @@ class Uninstall extends Command
 
       Usage: ipm uninstall <package_name>...
 
-      Delete the installed package(s) from the ~/.atom/packages directory.
+      Delete the installed package(s) from the ~/.config/inkdrop/packages directory.
     """
     options.alias('h', 'help').describe('help', 'Print this usage message')
-    options.alias('d', 'dev').boolean('dev').describe('dev', 'Uninstall from ~/.atom/dev/packages')
-    options.boolean('hard').describe('hard', 'Uninstall from ~/.atom/packages and ~/.atom/dev/packages')
+    options.alias('d', 'dev').boolean('dev').describe('dev', 'Uninstall from ~/.config/inkdrop/dev/packages')
+    options.boolean('hard').describe('hard', 'Uninstall from ~/.config/inkdrop/packages and ~/.config/inkdrop/dev/packages')
 
   getPackageVersion: (packageDirectory) ->
     try

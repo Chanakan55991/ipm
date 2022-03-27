@@ -17,7 +17,7 @@ class Link extends Command
 
       Usage: ipm link [<package_path>] [--name <package_name>]
 
-      Create a symlink for the package in ~/.atom/packages. The package in the
+      Create a symlink for the package in ~/.config/inkdrop/packages. The package in the
       current working directory is linked if no path is given.
 
       Run `ipm links` to view all the currently linked packages.

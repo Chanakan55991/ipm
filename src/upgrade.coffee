@@ -33,7 +33,7 @@ class Upgrade extends Command
              ipm upgrade --list
              ipm upgrade [<package_name>...]
 
-      Upgrade out of date packages installed to ~/.atom/packages
+      Upgrade out of date packages installed to ~/.config/inkdrop/packages
 
       This command lists the out of date packages and then prompts to install
       available updates.

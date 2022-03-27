@@ -132,7 +132,7 @@ module.exports =
         ; This file is auto-generated and should not be edited since any
         ; modifications will be lost the next time any apm command is run.
         ;
-        ; You should instead edit your .apmrc config located in ~/.atom/.apmrc
+        ; You should instead edit your .ipmrc config located in ~/.config/inkdrop/.ipmrc
         cache = #{@getCacheDirectory()}
         ; Hide progress-bar to prevent npm from altering apm console output.
         progress = false

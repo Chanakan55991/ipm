@@ -27,7 +27,7 @@ class Star extends Command
       Run `ipm stars` to see all your starred packages.
     """
     options.alias('h', 'help').describe('help', 'Print this usage message')
-    options.boolean('installed').describe('installed', 'Star all packages in ~/.atom/packages')
+    options.boolean('installed').describe('installed', 'Star all packages in ~/.config/inkdrop/packages')
 
   starPackage: (packageName, {ignoreUnpublishedPackages, token}={}, callback) ->
     process.stdout.write '\u2B50  ' if process.platform is 'darwin'
